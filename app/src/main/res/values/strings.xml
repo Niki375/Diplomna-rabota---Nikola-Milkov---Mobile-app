@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SafeFood</string>
+    <string name="login">Login</string>
+    <string name="signup">Create account</string>
+    <string name="forgot_password">Submit</string>
+    <string name="user_type">User</string>
+    <string name="shop_type">Shop</string>
+</resources>
