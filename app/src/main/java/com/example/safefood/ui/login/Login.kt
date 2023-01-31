@@ -27,7 +27,7 @@ import com.example.safefood.ui.theme.Purple700
 import com.example.safefood.R
 
 @Composable
-fun LoginPage(onLoginClick:() -> Unit, onForgotPassordCLick: () -> Unit, onSignUpHereCLick:() -> Unit) {
+fun LoginPage(onLoginClick:() -> Unit, onForgotPasswordCLick: () -> Unit, onSignUpHereCLick:() -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
         ClickableText(
             text = AnnotatedString("Sign up here"),
@@ -85,7 +85,7 @@ fun LoginPage(onLoginClick:() -> Unit, onForgotPassordCLick: () -> Unit, onSignU
         Spacer(modifier = Modifier.height(20.dp))
         ClickableText(
             text = AnnotatedString("Forgot password?"),
-            onClick = {onForgotPassordCLick()},
+            onClick = {onForgotPasswordCLick()},
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily.Default

@@ -1,11 +1,9 @@
-package com.example.safefood.ui.SignUpType
+package com.example.safefood.ui.signup
 
 import ButtonTemplate
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -28,7 +26,7 @@ import com.example.safefood.R
 import com.example.safefood.ui.theme.Purple700
 
 @Composable
-fun SignUpTypePage(onUserClick:() -> Unit, onShopClick:() -> Unit, onLoginClick:() -> Unit) {
+fun CustomerSignUpPage(onSignUpHereCLick:() -> Unit, onLoginClick:() -> Unit) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         ClickableText(
@@ -52,7 +50,47 @@ fun SignUpTypePage(onUserClick:() -> Unit, onShopClick:() -> Unit, onLoginClick:
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Select how you will use the app", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
+        val username = remember { mutableStateOf(TextFieldValue()) }
+        val email = remember { mutableStateOf(TextFieldValue()) }
+        val phone_number = remember { mutableStateOf(TextFieldValue()) }
+        val password = remember { mutableStateOf(TextFieldValue()) }
+        val confirm_password = remember { mutableStateOf(TextFieldValue()) }
+
+        Text(text = "SignUp", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
+
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            label = { Text(text = "Username") },
+            value = username.value,
+            onValueChange = { username.value = it })
+
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            label = { Text(text = "Email") },
+            value = email.value,
+            onValueChange = { email.value = it })
+
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            label = { Text(text = "Phone Number") },
+            value = phone_number.value,
+            onValueChange = { phone_number.value = it })
+
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            label = { Text(text = "Password") },
+            value = password.value,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            onValueChange = { password.value = it })
+
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            label = { Text(text = "Confirm Password") },
+            value = confirm_password.value,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            onValueChange = { confirm_password.value = it })
 
         Spacer(modifier = Modifier.height(20.dp))
         /*Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
@@ -66,9 +104,9 @@ fun SignUpTypePage(onUserClick:() -> Unit, onShopClick:() -> Unit, onLoginClick:
                 Text(text = "Create account")
             }
         }*/
-        ButtonTemplate(onButtonClick = {onUserClick()}, text = stringResource(id = R.string.user_type))
-        ButtonTemplate(onButtonClick = {onShopClick()}, text = stringResource(id = R.string.shop_type))
+        ButtonTemplate(onButtonClick = {onSignUpHereCLick()}, text = stringResource(id = R.string.signup))
 
         Text(text = "Already have an account?", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
+
     }
 }

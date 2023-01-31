@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "95636200201",
+    "project_id": "savemyfood-e0784",
+    "storage_bucket": "savemyfood-e0784.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95636200201:android:644757ad2ba2cd69c691d8",
+        "android_client_info": {
+          "package_name": "com.example.safefood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95636200201-l8i7c8fu9ch4slivdl823lgp0l8cebs4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-UKZbOAB6-mP62CEpL1F15eQ630ZAe7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95636200201-l8i7c8fu9ch4slivdl823lgp0l8cebs4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
