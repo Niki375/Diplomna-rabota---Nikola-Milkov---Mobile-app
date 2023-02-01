@@ -25,6 +25,11 @@ import androidx.compose.ui.unit.sp
 import com.example.safefood.R
 import com.example.safefood.ui.theme.Purple700
 
+//fun onSignUpHereCLick() {
+//    // code to execute when the button is clicked
+//    signUp(email.value, password.value)
+//}
+
 @Composable
 fun CustomerSignUpPage(onSignUpHereCLick:() -> Unit, onLoginClick:() -> Unit) {
 

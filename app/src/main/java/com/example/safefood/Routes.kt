@@ -5,8 +5,10 @@ sealed class Routes(val route: String) {
     object BusinessSignUp : Routes("BusinessSignUp")
     object ForgotPassword : Routes("ForgotPassword")
     object Login : Routes("Login")
-    //object Dashboard : Routes("Dashboard")
-    //object Home : Routes("Home")
     object SignUpType : Routes ("SignUpType")
+    object UserHome : Routes ("UserHome")
+    object UserCart: Routes ("UserCart")
+    object UserProfile: Routes ("UserProfile")
+    object UserMap: Routes ("UserMap")
 
 }

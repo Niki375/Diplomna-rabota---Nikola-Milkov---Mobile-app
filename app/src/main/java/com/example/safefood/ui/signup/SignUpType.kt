@@ -1,4 +1,4 @@
-package com.example.safefood.ui.login
+package com.example.safefood.ui.SignUpType
 
 import ButtonTemplate
 import androidx.compose.foundation.layout.*
@@ -20,23 +20,23 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.safefood.ui.theme.Purple700
 import com.example.safefood.R
-import com.google.firebase.ktx.Firebase
+import com.example.safefood.ui.theme.Purple700
 
 @Composable
-fun LoginPage(onLoginClick:() -> Unit, onForgotPasswordCLick: () -> Unit, onSignUpHereCLick:() -> Unit) {
+fun SignUpTypePage(onUserClick:() -> Unit, onShopClick:() -> Unit, onLoginClick:() -> Unit) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         ClickableText(
-            text = AnnotatedString("Sign up here"),
+            text = AnnotatedString("Login"),
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(20.dp),
-            onClick = {onSignUpHereCLick()
-                      },
+            onClick = {(onLoginClick())},
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily.Default,
@@ -45,53 +45,30 @@ fun LoginPage(onLoginClick:() -> Unit, onForgotPasswordCLick: () -> Unit, onSign
             )
         )
     }
+
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val username = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
-
-        Text(text = "Login", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
-
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Username") },
-            value = username.value,
-            onValueChange = { username.value = it })
-
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Password") },
-            value = password.value,
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })
+        Text(text = "Select how you will use the app", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
 
         Spacer(modifier = Modifier.height(20.dp))
         /*Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {onLoginClick()},
+                onClick = {onSignUpHereCLick()},
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
             ) {
-                Text(text = "Login")
+                Text(text = "Create account")
             }
         }*/
-        ButtonTemplate(onButtonClick = {onLoginClick()}, text = stringResource(id = R.string.login))
+        ButtonTemplate(onButtonClick = {onUserClick()}, text = stringResource(id = R.string.user_type))
+        ButtonTemplate(onButtonClick = {onShopClick()}, text = stringResource(id = R.string.shop_type))
 
-        Spacer(modifier = Modifier.height(20.dp))
-        ClickableText(
-            text = AnnotatedString("Forgot password?"),
-            onClick = {onForgotPasswordCLick()},
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default
-            )
-        )
+        Text(text = "Already have an account?", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
     }
 }

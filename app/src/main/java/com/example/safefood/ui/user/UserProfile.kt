@@ -1,11 +1,9 @@
-package com.example.safefood.ui.login
+package com.example.safefood.ui.user
 
 import ButtonTemplate
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -20,23 +18,23 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.safefood.ui.theme.Purple700
 import com.example.safefood.R
-import com.google.firebase.ktx.Firebase
+import com.example.safefood.ui.theme.Purple700
 
 @Composable
-fun LoginPage(onLoginClick:() -> Unit, onForgotPasswordCLick: () -> Unit, onSignUpHereCLick:() -> Unit) {
+fun UserProfilePage(onLogOutClick:() -> Unit, onDeleteAccount:() -> Unit) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         ClickableText(
-            text = AnnotatedString("Sign up here"),
+            text = AnnotatedString("Log out"),
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(20.dp),
-            onClick = {onSignUpHereCLick()
-                      },
+            onClick = {(onLogOutClick())},
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily.Default,
@@ -45,6 +43,23 @@ fun LoginPage(onLoginClick:() -> Unit, onForgotPasswordCLick: () -> Unit, onSign
             )
         )
     }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        ClickableText(
+            text = AnnotatedString("Delete account"),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(20.dp),
+            onClick = {(onDeleteAccount())},
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontFamily = FontFamily.Default,
+                textDecoration = TextDecoration.Underline,
+                color = Purple700
+            )
+        )
+    }
+
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.Center,
@@ -52,9 +67,10 @@ fun LoginPage(onLoginClick:() -> Unit, onForgotPasswordCLick: () -> Unit, onSign
     ) {
 
         val username = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
+        val email = remember { mutableStateOf(TextFieldValue()) }
+        val phone_number = remember { mutableStateOf(TextFieldValue()) }
 
-        Text(text = "Login", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
+        Text(text = "SignUp", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
@@ -64,34 +80,18 @@ fun LoginPage(onLoginClick:() -> Unit, onForgotPasswordCLick: () -> Unit, onSign
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
-            label = { Text(text = "Password") },
-            value = password.value,
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })
+            label = { Text(text = "Email") },
+            value = email.value,
+            onValueChange = { email.value = it })
 
         Spacer(modifier = Modifier.height(20.dp))
-        /*Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = {onLoginClick()},
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Login")
-            }
-        }*/
-        ButtonTemplate(onButtonClick = {onLoginClick()}, text = stringResource(id = R.string.login))
+        TextField(
+            label = { Text(text = "Phone Number") },
+            value = phone_number.value,
+            onValueChange = { phone_number.value = it })
+
 
         Spacer(modifier = Modifier.height(20.dp))
-        ClickableText(
-            text = AnnotatedString("Forgot password?"),
-            onClick = {onForgotPasswordCLick()},
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default
-            )
-        )
+
     }
 }

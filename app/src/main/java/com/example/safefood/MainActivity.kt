@@ -26,6 +26,9 @@ class MainActivity : ComponentActivity() {
                         Box(modifier = Modifier.padding(padding)) {
                             NavHost(navController)
                         }
+                    },
+                    bottomBar = {
+
                     }
                 )
 
