@@ -6,4 +6,6 @@
     <string name="user_type">User</string>
     <string name="shop_type">Shop</string>
     <string name="logout">Log out</string>
+    <string name="addbox">Add Box</string>
+    <string name="sellbox">Sellbox</string>
 </resources>

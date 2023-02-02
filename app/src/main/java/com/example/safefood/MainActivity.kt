@@ -108,6 +108,6 @@ class MainActivity : ComponentActivity() {
 
     private fun shouldShowSecondNavBar(currentRoute: String?): Boolean {
         // Add logic to decide which pages should have the second navigation bar and which not
-        return currentRoute == "Login"
+        return currentRoute == "ShopHome" || currentRoute == "ShopProfile"
     }
 }

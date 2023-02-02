@@ -8,6 +8,9 @@ import com.example.safefood.Routes
 import com.example.safefood.ui.Forgot_Password.ForgotPasswordPage
 import com.example.safefood.ui.SignUpType.SignUpTypePage
 import com.example.safefood.ui.login.LoginPage
+import com.example.safefood.ui.shop.ShopAddBoxPage
+import com.example.safefood.ui.shop.ShopHomePage
+import com.example.safefood.ui.shop.ShopProfilePage
 import com.example.safefood.ui.signup.BusinessSignUpPage
 import com.example.safefood.ui.signup.CustomerSignUpPage
 import com.example.safefood.ui.user.UserCartPage
@@ -22,7 +25,7 @@ fun NavHost(navController: NavHostController){
         startDestination = Routes.Login.route) {
 
             composable(Routes.Login.route) {
-                LoginPage(onLoginClick = {navController.navigate(Routes.UserHome.route)}, onForgotPasswordCLick = {navController.navigate(Routes.ForgotPassword.route)}, onSignUpHereCLick = {navController.navigate(Routes.SignUpType.route)})
+                LoginPage(onLoginClick = {navController.navigate(Routes.Login.route)}, onForgotPasswordCLick = {navController.navigate(Routes.ForgotPassword.route)}, onSignUpHereCLick = {navController.navigate(Routes.SignUpType.route)})
             }
 
             composable(Routes.CustomerSignUp.route) {
@@ -30,7 +33,7 @@ fun NavHost(navController: NavHostController){
             }
 
             composable(Routes.BusinessSignUp.route) {
-                BusinessSignUpPage(onSignUpHereCLick = {navController.navigate(Routes.Login.route)}, onLoginClick = {navController.navigate(Routes.Login.route)})
+                BusinessSignUpPage(onSignUpHereCLick = {navController.navigate(Routes.ShopHome.route)}, onLoginClick = {navController.navigate(Routes.Login.route)})
             }
 
             composable(Routes.ForgotPassword.route) {
@@ -55,6 +58,18 @@ fun NavHost(navController: NavHostController){
 
             composable(Routes.UserMap.route) {
                 UserMapPage()
+            }
+
+            composable(Routes.ShopHome.route) {
+                ShopHomePage(onAddBoxClick = {navController.navigate(Routes.ShopAddBox.route)})
+            }
+
+            composable(Routes.ShopProfile.route) {
+                ShopProfilePage(onLogOutClick = {navController.navigate(Routes.Login.route)}, onDeleteAccount = {navController.navigate(Routes.Login.route)})
+            }
+
+            composable(Routes.ShopAddBox.route) {
+                ShopAddBoxPage(onSellBoxClick = {navController.navigate(Routes.ShopHome.route)})
             }
     }
 }
