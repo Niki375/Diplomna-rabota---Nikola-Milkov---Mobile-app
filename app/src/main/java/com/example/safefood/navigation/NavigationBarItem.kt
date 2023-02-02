@@ -35,3 +35,16 @@ val bottomNavItems = listOf(
         icon = Icons.Rounded.LocationOn,
     )
 )
+
+val secondbottomNavItems = listOf(
+    BottomNavItem(
+        name = "Home",
+        route = "ShopHome",
+        icon = Icons.Rounded.Home,
+    ),
+    BottomNavItem(
+        name = "Profile",
+        route = "ShopProfile",
+        icon = Icons.Rounded.AccountCircle,
+    ),
+)
