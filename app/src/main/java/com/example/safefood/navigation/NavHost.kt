@@ -13,6 +13,7 @@ import com.example.safefood.ui.shop.ShopHomePage
 import com.example.safefood.ui.shop.ShopProfilePage
 import com.example.safefood.ui.signup.BusinessSignUpPage
 import com.example.safefood.ui.signup.CustomerSignUpPage
+import com.example.safefood.ui.signup.CustomerSignUpPage
 import com.example.safefood.ui.user.UserCartPage
 import com.example.safefood.ui.user.UserHomePage
 import com.example.safefood.ui.user.UserMapPage
@@ -25,7 +26,7 @@ fun NavHost(navController: NavHostController){
         startDestination = Routes.Login.route) {
 
             composable(Routes.Login.route) {
-                LoginPage(onLoginClick = {navController.navigate(Routes.Login.route)}, onForgotPasswordCLick = {navController.navigate(Routes.ForgotPassword.route)}, onSignUpHereCLick = {navController.navigate(Routes.SignUpType.route)})
+                LoginPage(onLoginClick = {}, onForgotPasswordCLick = {navController.navigate(Routes.ForgotPassword.route)}, onSignUpHereCLick = {navController.navigate(Routes.SignUpType.route)})
             }
 
             composable(Routes.CustomerSignUp.route) {

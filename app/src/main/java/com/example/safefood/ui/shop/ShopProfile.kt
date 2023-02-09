@@ -1,7 +1,6 @@
 package com.example.safefood.ui.shop
 
 import ButtonTemplate
-import android.location.Address
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Text

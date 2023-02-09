@@ -1,49 +1,37 @@
-/*package com.example.safefood.ui.login
+package com.example.safefood.ui.login
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.safefood.firebase.Resource
+import com.example.safefood.firebase.data.Authentication
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-/*class LoginViewModel(private val firebaseAuth: FirebaseAuth) {
-    private val auth = Firebase.auth
-    var email = ""
-    var password = ""
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val repository: Authentication
+): ViewModel(){
 
+    val _loginState = Channel<LoginState>()
+    val loginState = _loginState.receiveAsFlow()
 
-    fun onLoginClick(){
-        auth.signInWithEmailAndPassword(email, password);
-    }
-
-    fun onForgotPasswordCLick(){
-        auth.sendPasswordResetEmail(email)
-    }
-
-    fun onSignUpHereCLick(){
-        auth.createUserWithEmailAndPassword(email,password)
-    }
-}*/
-
-class LoginViewModel{
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    var email = ""
-    var password = ""
-
-    fun onLoginClick() {
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    // Login successful
-                } else {
-                    // Login failed
+    fun loginUser(email: String, password: String) = viewModelScope.launch {
+        repository.loginUSer(email = String(), password = String()).collect{result ->
+            when(result){
+                is Resource.Success ->{
+                     _loginState.send(LoginState(isSuccess = "Sign In Success"))
+                }
+                is Resource.Loading ->{
+                    _loginState.send(LoginState(isLoading = true))
+                }
+                is Resource.Error ->{
+                    _loginState.send(LoginState(isError = result.message))
                 }
             }
+        }
     }
 
-    fun onForgotPasswordClick() {
-        // Show forgot password dialog
-    }
-
-    fun onSignUpHereClick() {
-        // Navigate to Sign Up screen
-    }
-}*/
+}

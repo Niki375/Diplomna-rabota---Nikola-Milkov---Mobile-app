@@ -9,22 +9,20 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.safefood.navigation.NavHost
 import com.example.safefood.navigation.bottomNavItems
 import com.example.safefood.navigation.secondbottomNavItems
 import com.example.safefood.ui.theme.SafeFoodTheme
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.internal.GeneratedComponent
 
-
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
