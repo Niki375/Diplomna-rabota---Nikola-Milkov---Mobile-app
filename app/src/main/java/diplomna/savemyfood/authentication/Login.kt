@@ -23,7 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoginPage(onLoginClick: () -> Unit, onForgotPasswordClick: () -> Unit, onSignUpHereClick:() -> Unit) {
+fun LoginPage(
+    onLoginClick: () -> Unit,
+    onForgotPasswordClick: () -> Unit,
+    onSignUpHereClick:() -> Unit,
+) {
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -53,7 +57,7 @@ fun LoginPage(onLoginClick: () -> Unit, onForgotPasswordClick: () -> Unit, onSig
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {onLoginClick()},
+                onClick = {},
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()

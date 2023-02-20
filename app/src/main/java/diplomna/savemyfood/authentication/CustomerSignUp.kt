@@ -1,7 +1,6 @@
 package diplomna.savemyfood.authentication
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -24,7 +23,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CustomerSignUpPage(onSignUpClick:() -> Unit, onLoginClick: () -> Unit) {
+fun CustomerSignUpPage(onSignUpClick:() -> Unit, onLoginClick: () -> Unit, successfulSignUp: () -> Unit,
+state: SignUpViewModel.LinkState,
+username:String, email: String, password:String,
+setUsername : (String) -> Unit, setEmail : (String) -> Unit, setPassword : (String) -> Unit
+) {
+
+    when (state) {
+        SignUpViewModel.LinkState.Error -> {
+
+        }
+        SignUpViewModel.LinkState.None -> TODO()
+        SignUpViewModel.LinkState.Success -> {
+            successfulSignUp()
+        }
+    }
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -32,51 +45,49 @@ fun CustomerSignUpPage(onSignUpClick:() -> Unit, onLoginClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val username = remember { mutableStateOf(TextFieldValue()) }
-        val email = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
-        val confirm_password = remember { mutableStateOf(TextFieldValue()) }
+//        val username = remember { mutableStateOf(TextFieldValue()) }
+//        val email = remember { mutableStateOf(TextFieldValue()) }
+//        val password = remember { mutableStateOf(TextFieldValue()) }
+//        val confirmPassword = remember { mutableStateOf(TextFieldValue()) }
 
         Text(text = "Sign up", style = TextStyle(fontSize = 40.sp))
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Username") },
-            value = username.value,
-            onValueChange = { username.value = it })
+            value = username,
+            onValueChange = { setUsername })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Email") },
-            value = email.value,
-            onValueChange = { email.value = it })
+            value = email,
+            onValueChange = { setEmail })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Password") },
-            value = password.value,
+            value = password,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })
+            onValueChange = { setPassword })
 
-        Spacer(modifier = Modifier.height(20.dp))
+        /*Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Confirm Password") },
-            value = confirm_password.value,
+            value = confirmPassword.value,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { confirm_password.value = it })
+            onValueChange = { confirmPassword.value = it })*/
 
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = {onSignUpClick()},
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Sign up")
+            Button(onClick = {
+                // Call the createAccount function with the email and password
+//                EmailPasswordActivity().createAccount(email.value.text, password.value.text)
+                onSignUpClick()
+            }) {
+                Text("Create Account")
             }
         }
 

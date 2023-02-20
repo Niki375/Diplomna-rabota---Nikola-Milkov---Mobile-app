@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "95636200201",
-    "project_id": "savemyfood-e0784",
-    "storage_bucket": "savemyfood-e0784.appspot.com"
+    "project_number": "462028671165",
+    "project_id": "savemyfood-cc937",
+    "storage_bucket": "savemyfood-cc937.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:95636200201:android:644757ad2ba2cd69c691d8",
+        "mobilesdk_app_id": "1:462028671165:android:13bdbca601a4b718bd8fd4",
         "android_client_info": {
-          "package_name": "com.example.safefood"
+          "package_name": "diplomna.savemyfood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "95636200201-l8i7c8fu9ch4slivdl823lgp0l8cebs4.apps.googleusercontent.com",
+          "client_id": "462028671165-qca2hg0s72h5ob1n2tlgf7lkkporbf4d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB-UKZbOAB6-mP62CEpL1F15eQ630ZAe7k"
+          "current_key": "AIzaSyAj7YpJDi2AKaYzrifKqZ4_Qti9KKtHxoM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "95636200201-l8i7c8fu9ch4slivdl823lgp0l8cebs4.apps.googleusercontent.com",
+              "client_id": "462028671165-qca2hg0s72h5ob1n2tlgf7lkkporbf4d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,16 +1,19 @@
 package diplomna.savemyfood.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import diplomna.savemyfood.business.BusinessSellBoxPage
 import diplomna.savemyfood.authentication.*
 import diplomna.savemyfood.business.BusinessHomePage
 import diplomna.savemyfood.business.BusinessProfilePage
+import diplomna.savemyfood.business.BusinessSellBoxPage
 import diplomna.savemyfood.customer.CustomerCartPage
 import diplomna.savemyfood.customer.CustomerHomePage
 import diplomna.savemyfood.customer.CustomerMapPage
 import diplomna.savemyfood.customer.CustomerProfilePage
+import org.koin.androidx.compose.getViewModel
 
 
 @Composable
@@ -27,7 +30,21 @@ fun NavHost(navController: NavHostController) {
             SignUpTypePage(onCustomerClick = {navController.navigate(Routes.CustomerSignUp.route)}, onBusinessClick = {navController.navigate(Routes.BusinessSignUp.route)}, onLoginClick = {navController.navigate(Routes.Login.route)})
         }
         composable(Routes.CustomerSignUp.route) {
-            CustomerSignUpPage(onSignUpClick = {navController.navigate(Routes.CustomerHome.route)}, onLoginClick = {navController.navigate(Routes.Login.route)})
+            val viewModel = getViewModel<SignUpViewModel>()
+
+            val username by viewModel.username.collectAsState()
+            val email by viewModel.username.collectAsState()
+            val password by viewModel.username.collectAsState()
+            val linkState by viewModel.state.collectAsState()
+
+            CustomerSignUpPage(onSignUpClick = {viewModel.linkAccount()}
+                , onLoginClick = {navController.navigate(Routes.Login.route)},
+            successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
+            username = username, email = email, password = password,
+            setUsername = {viewModel.username(it)},
+            setEmail = {viewModel.username(it)},
+            setPassword = {viewModel.username(it)},
+            state = linkState)
         }
         composable(Routes.BusinessSignUp.route) {
             BusinessSignUpPage(onSignUpClick = {navController.navigate(Routes.BusinessHome.route)}, onLoginClick = {navController.navigate(Routes.Login.route)})
