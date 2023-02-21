@@ -24,17 +24,22 @@ fun NavHost(navController: NavHostController) {
         startDestination = Routes.Login.route
     ) {
         composable(Routes.Login.route) {
-            LoginPage(onLoginClick = {}, onForgotPasswordClick = {navController.navigate(Routes.ForgotPassword.route)}, onSignUpHereClick = {navController.navigate(Routes.SignUpType.route)})
+            LoginPage(onLoginClick = {},
+                onForgotPasswordClick = {navController.navigate(Routes.ForgotPassword.route)},
+                onSignUpHereClick = {navController.navigate(Routes.SignUpType.route)})
         }
         composable(Routes.SignUpType.route) {
-            SignUpTypePage(onCustomerClick = {navController.navigate(Routes.CustomerSignUp.route)}, onBusinessClick = {navController.navigate(Routes.BusinessSignUp.route)}, onLoginClick = {navController.navigate(Routes.Login.route)})
+            SignUpTypePage(
+                onCustomerClick = {navController.navigate(Routes.CustomerSignUp.route)},
+                onBusinessClick = {navController.navigate(Routes.BusinessSignUp.route)},
+                onLoginClick = {navController.navigate(Routes.Login.route)})
         }
         composable(Routes.CustomerSignUp.route) {
             val viewModel = getViewModel<SignUpViewModel>()
 
             val username by viewModel.username.collectAsState()
-            val email by viewModel.username.collectAsState()
-            val password by viewModel.username.collectAsState()
+            val email by viewModel.email.collectAsState()
+            val password by viewModel.pass.collectAsState()
             val linkState by viewModel.state.collectAsState()
 
             CustomerSignUpPage(onSignUpClick = {viewModel.linkAccount()}
@@ -42,8 +47,8 @@ fun NavHost(navController: NavHostController) {
             successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
             username = username, email = email, password = password,
             setUsername = {viewModel.username(it)},
-            setEmail = {viewModel.username(it)},
-            setPassword = {viewModel.username(it)},
+            setEmail = {viewModel.email(it)},
+            setPassword = {viewModel.pass(it)},
             state = linkState)
         }
         composable(Routes.BusinessSignUp.route) {

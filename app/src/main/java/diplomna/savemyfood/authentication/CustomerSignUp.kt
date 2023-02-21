@@ -23,17 +23,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CustomerSignUpPage(onSignUpClick:() -> Unit, onLoginClick: () -> Unit, successfulSignUp: () -> Unit,
-state: SignUpViewModel.LinkState,
-username:String, email: String, password:String,
-setUsername : (String) -> Unit, setEmail : (String) -> Unit, setPassword : (String) -> Unit
+fun CustomerSignUpPage(onSignUpClick: () -> Unit,
+                       onLoginClick: () -> Unit,
+                       successfulSignUp: () -> Unit,
+                       username: String,
+                       email: String,
+                       password: String,
+                       setUsername: (String) -> Unit,
+                       setEmail: (String) -> Unit,
+                       setPassword: (String) -> Unit,
+                       state: SignUpViewModel.LinkState
 ) {
 
     when (state) {
         SignUpViewModel.LinkState.Error -> {
 
         }
-        SignUpViewModel.LinkState.None -> TODO()
+        SignUpViewModel.LinkState.None -> {
+        }
         SignUpViewModel.LinkState.Success -> {
             successfulSignUp()
         }
@@ -56,13 +63,13 @@ setUsername : (String) -> Unit, setEmail : (String) -> Unit, setPassword : (Stri
         TextField(
             label = { Text(text = "Username") },
             value = username,
-            onValueChange = { setUsername })
+            onValueChange = { setUsername(it) })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Email") },
             value = email,
-            onValueChange = { setEmail })
+            onValueChange = { setEmail(it) })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
@@ -70,7 +77,7 @@ setUsername : (String) -> Unit, setEmail : (String) -> Unit, setPassword : (Stri
             value = password,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { setPassword })
+            onValueChange = { setPassword(it) })
 
         /*Spacer(modifier = Modifier.height(20.dp))
         TextField(

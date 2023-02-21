@@ -26,7 +26,7 @@ class SignUpViewModel(private val authService: AuthService): ViewModel() {
         MutableStateFlow("")
     val pass: StateFlow<String> = _pass
 
-    fun _pass(pass: String) {
+    fun pass(pass: String) {
         _pass.value = pass
     }
 
