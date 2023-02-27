@@ -34,25 +34,45 @@ fun NavHost(navController: NavHostController) {
                 onBusinessClick = {navController.navigate(Routes.BusinessSignUp.route)},
                 onLoginClick = {navController.navigate(Routes.Login.route)})
         }
+
         composable(Routes.CustomerSignUp.route) {
             val viewModel = getViewModel<SignUpViewModel>()
 
             val username by viewModel.username.collectAsState()
             val email by viewModel.email.collectAsState()
-            val password by viewModel.pass.collectAsState()
+            val password by viewModel.password.collectAsState()
             val linkState by viewModel.state.collectAsState()
 
-            CustomerSignUpPage(onSignUpClick = {viewModel.linkAccount()}
+            CustomerSignUpPage(onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.CustomerHome.route )
+            }
                 , onLoginClick = {navController.navigate(Routes.Login.route)},
             successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
             username = username, email = email, password = password,
-            setUsername = {viewModel.username(it)},
-            setEmail = {viewModel.email(it)},
-            setPassword = {viewModel.pass(it)},
+            setUsername = {viewModel.setUsername(it)},
+            setEmail = {viewModel.setEmail(it)},
+            setPassword = {viewModel.setPassword(it)},
             state = linkState)
         }
+
         composable(Routes.BusinessSignUp.route) {
-            BusinessSignUpPage(onSignUpClick = {navController.navigate(Routes.BusinessHome.route)}, onLoginClick = {navController.navigate(Routes.Login.route)})
+            val viewModel = getViewModel<SignUpBusinessViewModel>()
+
+            val username by viewModel.username.collectAsState()
+            val email by viewModel.email.collectAsState()
+            val password by viewModel.password.collectAsState()
+            val address by viewModel.address.collectAsState()
+            val LinkState by viewModel.state.collectAsState()
+
+            BusinessSignUpPage(onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.BusinessHome.route )
+            }
+                , onLoginClick = {navController.navigate(Routes.Login.route)},
+                successfulSignUp = { navController.navigate(Routes.BusinessHome.route) },
+                username = username, email = email, password = password, address = address,
+                setUsername = {viewModel.setUsername(it)},
+                setEmail = {viewModel.setEmail(it)},
+                setPassword = {viewModel.setPassword(it)},
+                setAddress = {viewModel.setAddress(it)},
+                state = LinkState)
         }
         composable(Routes.ForgotPassword.route) {
             ForgotPasswordPage(onSubmitClick = {})

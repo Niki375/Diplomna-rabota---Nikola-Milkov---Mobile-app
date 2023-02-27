@@ -1,7 +1,6 @@
 package diplomna.savemyfood.authentication
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -24,7 +23,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun BusinessSignUpPage(onSignUpClick:() -> Unit, onLoginClick: () -> Unit) {
+fun BusinessSignUpPage(onSignUpClick: () -> Unit,
+                       onLoginClick: () -> Unit,
+                       successfulSignUp: () -> Unit,
+                       username: String,
+                       email: String,
+                       password: String,
+                       address: String,
+                       setUsername: (String) -> Unit,
+                       setEmail: (String) -> Unit,
+                       setPassword: (String) -> Unit,
+                       setAddress: (String) -> Unit,
+                       state: SignUpBusinessViewModel.LinkState
+) {
+
+    when (state) {
+        SignUpBusinessViewModel.LinkState.Error -> {
+
+        }
+        SignUpBusinessViewModel.LinkState.None -> {
+        }
+        SignUpBusinessViewModel.LinkState.Success -> {
+            successfulSignUp()
+        }
+    }
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -32,58 +54,55 @@ fun BusinessSignUpPage(onSignUpClick:() -> Unit, onLoginClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val business_name = remember { mutableStateOf(TextFieldValue()) }
-        val address = remember { mutableStateOf(TextFieldValue()) }
-        val email = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
-        val confirm_password = remember { mutableStateOf(TextFieldValue()) }
+//        val username = remember { mutableStateOf(TextFieldValue()) }
+//        val email = remember { mutableStateOf(TextFieldValue()) }
+//        val password = remember { mutableStateOf(TextFieldValue()) }
+//        val confirmPassword = remember { mutableStateOf(TextFieldValue()) }
 
         Text(text = "Sign up", style = TextStyle(fontSize = 40.sp))
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
-            label = { Text(text = "Business name") },
-            value = business_name.value,
-            onValueChange = { business_name.value = it })
-
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Address") },
-            value = address.value,
-            onValueChange = { address.value = it })
+            label = { Text(text = "Username") },
+            value = username,
+            onValueChange = { setUsername(it) })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Email") },
-            value = email.value,
-            onValueChange = { email.value = it })
+            value = email,
+            onValueChange = { setEmail(it) })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Password") },
-            value = password.value,
+            value = password,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })
+            onValueChange = { setPassword(it) })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
+            label = { Text(text = "Address") },
+            value = address,
+            onValueChange = { setAddress(it) })
+
+        /*Spacer(modifier = Modifier.height(20.dp))
+        TextField(
             label = { Text(text = "Confirm Password") },
-            value = confirm_password.value,
+            value = confirmPassword.value,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { confirm_password.value = it })
+            onValueChange = { confirmPassword.value = it })*/
 
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = {onSignUpClick()},
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Sign up")
+            Button(onClick = {
+                // Call the createAccount function with the email and password
+//                EmailPasswordActivity().createAccount(email.value.text, password.value.text)
+                onSignUpClick()
+            }) {
+                Text("Create Account")
             }
         }
 

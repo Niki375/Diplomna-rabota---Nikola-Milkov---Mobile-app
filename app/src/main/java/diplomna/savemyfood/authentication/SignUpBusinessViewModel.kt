@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SignUpViewModel(private val authService: AuthService): ViewModel() {
+
+class SignUpBusinessViewModel(private val authService: AuthService): ViewModel() {
 
     private val _state = MutableStateFlow<LinkState>(LinkState.None)
     val state = _state.asStateFlow()
@@ -33,6 +34,13 @@ class SignUpViewModel(private val authService: AuthService): ViewModel() {
 
     fun setUsername(usernameInput: String) {
         _username.value = usernameInput
+    }
+
+    private val _address = MutableStateFlow("")
+    val address: StateFlow<String> = _address
+
+    fun setAddress(addressInput: String) {
+        _address.value = addressInput
     }
 
     fun createAccount() {
