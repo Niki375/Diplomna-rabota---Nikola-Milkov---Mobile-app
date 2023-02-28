@@ -57,7 +57,10 @@ class SignUpBusinessViewModel(private val authService: AuthService): ViewModel()
         }
     }
 
-
+    fun reset()
+    {
+        _state.value = SignUpBusinessViewModel.LinkState.None
+    }
 
 
     sealed class LinkState {

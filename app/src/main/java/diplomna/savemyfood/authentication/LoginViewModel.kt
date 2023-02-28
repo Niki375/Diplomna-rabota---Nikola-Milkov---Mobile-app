@@ -40,8 +40,10 @@ class LoginViewModel(private val authService: AuthService): ViewModel() {
         }
     }
 
-
-
+fun reset()
+{
+    _state.value = LoginState.None
+}
 
 
     sealed class LoginState {

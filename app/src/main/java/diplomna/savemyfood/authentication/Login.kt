@@ -27,7 +27,7 @@ fun LoginPage(
     onLoginClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onSignUpHereClick:() -> Unit,
-    successfulSignUp: () -> Unit,
+    successfulLogin: () -> Unit,
     email: String,
     password: String,
     setEmail: (String) -> Unit,
@@ -43,7 +43,7 @@ fun LoginPage(
         LoginViewModel.LoginState.None -> {
         }
         LoginViewModel.LoginState.Success -> {
-            successfulSignUp()
+            successfulLogin()
         }
     }
 

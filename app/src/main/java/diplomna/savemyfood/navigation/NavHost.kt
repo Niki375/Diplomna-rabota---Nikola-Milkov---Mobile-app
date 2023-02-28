@@ -34,8 +34,11 @@ fun NavHost(navController: NavHostController) {
             LoginPage(
                 onForgotPasswordClick = { navController.navigate(Routes.ForgotPassword.route) },
                 onSignUpHereClick = { navController.navigate(Routes.SignUpType.route) },
-                onLoginClick = {viewModel.authenticate(); navController.navigate(Routes.CustomerHome.route) },
-                successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
+                onLoginClick = {viewModel.authenticate()},
+                successfulLogin = {
+                    navController.navigate(Routes.CustomerHome.route)
+                    viewModel.reset()
+                },
                 email = email, password = password,
                 setEmail = { viewModel.setEmail(it) },
                 setPassword = { viewModel.setPassword(it) },
@@ -59,9 +62,12 @@ fun NavHost(navController: NavHostController) {
             val linkState by viewModel.state.collectAsState()
 
             CustomerSignUpPage(
-                onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.Login.route)},
+                onSignUpClick = {viewModel.createAccount()},
                 onLoginClick = {navController.navigate(Routes.Login.route)},
-                successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
+                successfulSignUp = {
+                    navController.navigate(Routes.Login.route)
+                    viewModel.reset()
+                },
                 username = username, email = email, password = password,
                 setUsername = {viewModel.setUsername(it)},
                 setEmail = {viewModel.setEmail(it)},
@@ -79,9 +85,12 @@ fun NavHost(navController: NavHostController) {
             val LinkState by viewModel.state.collectAsState()
 
             BusinessSignUpPage(
-                onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.Login.route )},
+                onSignUpClick = {viewModel.createAccount()},
                 onLoginClick = {navController.navigate(Routes.Login.route)},
-                successfulSignUp = { navController.navigate(Routes.BusinessHome.route) },
+                successfulSignUp = {
+                    navController.navigate(Routes.Login.route)
+                    viewModel.reset()
+                },
                 username = username, email = email, password = password, address = address,
                 setUsername = {viewModel.setUsername(it)},
                 setEmail = {viewModel.setEmail(it)},
