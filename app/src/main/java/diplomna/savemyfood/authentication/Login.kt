@@ -27,7 +27,25 @@ fun LoginPage(
     onLoginClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onSignUpHereClick:() -> Unit,
+    successfulSignUp: () -> Unit,
+    email: String,
+    password: String,
+    setEmail: (String) -> Unit,
+    setPassword: (String) -> Unit,
+    state: LoginViewModel.LoginState
 ) {
+
+
+    when (state) {
+        LoginViewModel.LoginState.Error -> {
+
+        }
+        LoginViewModel.LoginState.None -> {
+        }
+        LoginViewModel.LoginState.Success -> {
+            successfulSignUp()
+        }
+    }
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -35,29 +53,27 @@ fun LoginPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val email = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
-
         Text(text = "Login", style = TextStyle(fontSize = 40.sp))
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Email") },
-            value = email.value,
-            onValueChange = { email.value = it })
+            value = email,
+            onValueChange = { setEmail(it) })
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Password") },
-            value = password.value,
+            value = password,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })
+            onValueChange = { setPassword(it) })
+
 
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {},
+                onClick = {onLoginClick()},
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()

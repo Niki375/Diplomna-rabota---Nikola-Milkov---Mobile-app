@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val authService: AuthService): ViewModel() {
+class SignUpCustomerViewModel(private val authService: AuthService): ViewModel() {
 
-    private val _state = MutableStateFlow<LoginState>(LoginState.None)
+    private val _state = MutableStateFlow<LinkState>(LinkState.None)
     val state = _state.asStateFlow()
 
     private val _email =
@@ -28,13 +28,22 @@ class LoginViewModel(private val authService: AuthService): ViewModel() {
         _password.value = passwordInput
     }
 
-    fun authenticate() {
+    private val _username = MutableStateFlow("")
+    val username: StateFlow<String> = _username
+
+    fun setUsername(usernameInput: String) {
+        _username.value = usernameInput
+    }
+
+    fun createAccount() {
         viewModelScope.launch {
-            authService.authenticate(email.value, password.value) { error ->
-                if (error == null) {
-                    _state.value = LoginState.Success
+            authService.signup(email.value, password.value) { user, error ->
+                if (error == null && user != null) {
+                    // success
+                    _state.value = LinkState.Success
                 } else {
-                    _state.value = LoginState.Error
+                    // set error
+                    _state.value = LinkState.Error
                 }
             }
         }
@@ -43,10 +52,9 @@ class LoginViewModel(private val authService: AuthService): ViewModel() {
 
 
 
-
-    sealed class LoginState {
-        object None :  LoginState()
-        object Success :  LoginState()
-        object Error :  LoginState()
+    sealed class LinkState {
+        object None :  LinkState()
+        object Success :  LinkState()
+        object Error :  LinkState()
     }
 }

@@ -24,10 +24,25 @@ fun NavHost(navController: NavHostController) {
         startDestination = Routes.Login.route
     ) {
         composable(Routes.Login.route) {
-            LoginPage(onLoginClick = {},
-                onForgotPasswordClick = {navController.navigate(Routes.ForgotPassword.route)},
-                onSignUpHereClick = {navController.navigate(Routes.SignUpType.route)})
+
+            val viewModel = getViewModel<LoginViewModel>()
+
+            val email by viewModel.email.collectAsState()
+            val password by viewModel.password.collectAsState()
+            val LoginState by viewModel.state.collectAsState()
+
+            LoginPage(
+                onForgotPasswordClick = { navController.navigate(Routes.ForgotPassword.route) },
+                onSignUpHereClick = { navController.navigate(Routes.SignUpType.route) },
+                onLoginClick = {viewModel.authenticate(); navController.navigate(Routes.CustomerHome.route) },
+                successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
+                email = email, password = password,
+                setEmail = { viewModel.setEmail(it) },
+                setPassword = { viewModel.setPassword(it) },
+                state = LoginState
+            )
         }
+
         composable(Routes.SignUpType.route) {
             SignUpTypePage(
                 onCustomerClick = {navController.navigate(Routes.CustomerSignUp.route)},
@@ -36,22 +51,22 @@ fun NavHost(navController: NavHostController) {
         }
 
         composable(Routes.CustomerSignUp.route) {
-            val viewModel = getViewModel<SignUpViewModel>()
+            val viewModel = getViewModel<SignUpCustomerViewModel>()
 
             val username by viewModel.username.collectAsState()
             val email by viewModel.email.collectAsState()
             val password by viewModel.password.collectAsState()
             val linkState by viewModel.state.collectAsState()
 
-            CustomerSignUpPage(onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.CustomerHome.route )
-            }
-                , onLoginClick = {navController.navigate(Routes.Login.route)},
-            successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
-            username = username, email = email, password = password,
-            setUsername = {viewModel.setUsername(it)},
-            setEmail = {viewModel.setEmail(it)},
-            setPassword = {viewModel.setPassword(it)},
-            state = linkState)
+            CustomerSignUpPage(
+                onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.Login.route)},
+                onLoginClick = {navController.navigate(Routes.Login.route)},
+                successfulSignUp = { navController.navigate(Routes.CustomerHome.route) },
+                username = username, email = email, password = password,
+                setUsername = {viewModel.setUsername(it)},
+                setEmail = {viewModel.setEmail(it)},
+                setPassword = {viewModel.setPassword(it)},
+                state = linkState)
         }
 
         composable(Routes.BusinessSignUp.route) {
@@ -63,9 +78,9 @@ fun NavHost(navController: NavHostController) {
             val address by viewModel.address.collectAsState()
             val LinkState by viewModel.state.collectAsState()
 
-            BusinessSignUpPage(onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.BusinessHome.route )
-            }
-                , onLoginClick = {navController.navigate(Routes.Login.route)},
+            BusinessSignUpPage(
+                onSignUpClick = {viewModel.createAccount(); navController.navigate(Routes.Login.route )},
+                onLoginClick = {navController.navigate(Routes.Login.route)},
                 successfulSignUp = { navController.navigate(Routes.BusinessHome.route) },
                 username = username, email = email, password = password, address = address,
                 setUsername = {viewModel.setUsername(it)},
@@ -74,6 +89,7 @@ fun NavHost(navController: NavHostController) {
                 setAddress = {viewModel.setAddress(it)},
                 state = LinkState)
         }
+
         composable(Routes.ForgotPassword.route) {
             ForgotPasswordPage(onSubmitClick = {})
         }
@@ -89,7 +105,9 @@ fun NavHost(navController: NavHostController) {
             CustomerMapPage()
         }
         composable(Routes.CustomerProfile.route) {
-            CustomerProfilePage(onLogOutClick = {navController.navigate(Routes.Login.route)}, onDeleteAccount = {navController.navigate(Routes.Login.route)})
+            CustomerProfilePage(
+                onLogOutClick = {navController.navigate(Routes.Login.route)},
+                onDeleteAccount = {navController.navigate(Routes.Login.route)})
         }
 
 
