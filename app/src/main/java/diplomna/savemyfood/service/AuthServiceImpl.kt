@@ -4,7 +4,6 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-
 class AuthServiceImpl: AuthService {
 
     private val auth = FirebaseAuth.getInstance()
@@ -17,6 +16,7 @@ class AuthServiceImpl: AuthService {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
                     onResult(null)
                 } else {
                     onResult(task.exception)

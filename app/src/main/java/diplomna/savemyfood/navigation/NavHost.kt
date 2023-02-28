@@ -9,6 +9,7 @@ import diplomna.savemyfood.authentication.*
 import diplomna.savemyfood.business.BusinessHomePage
 import diplomna.savemyfood.business.BusinessProfilePage
 import diplomna.savemyfood.business.BusinessSellBoxPage
+import diplomna.savemyfood.business.onSellBoxClick
 import diplomna.savemyfood.customer.CustomerCartPage
 import diplomna.savemyfood.customer.CustomerHomePage
 import diplomna.savemyfood.customer.CustomerMapPage
@@ -65,7 +66,7 @@ fun NavHost(navController: NavHostController) {
                 onSignUpClick = {viewModel.createAccount()},
                 onLoginClick = {navController.navigate(Routes.Login.route)},
                 successfulSignUp = {
-                    navController.navigate(Routes.Login.route)
+                    navController.navigate(Routes.CustomerHome.route)
                     viewModel.reset()
                 },
                 username = username, email = email, password = password,
@@ -88,7 +89,7 @@ fun NavHost(navController: NavHostController) {
                 onSignUpClick = {viewModel.createAccount()},
                 onLoginClick = {navController.navigate(Routes.Login.route)},
                 successfulSignUp = {
-                    navController.navigate(Routes.Login.route)
+                    navController.navigate(Routes.BusinessHome.route)
                     viewModel.reset()
                 },
                 username = username, email = email, password = password, address = address,
@@ -123,9 +124,13 @@ fun NavHost(navController: NavHostController) {
         composable(Routes.BusinessHome.route) {
             BusinessHomePage(onAddBoxClick = {navController.navigate(Routes.BusinessSellBox.route)})
         }
+
         composable(Routes.BusinessSellBox.route) {
-            BusinessSellBoxPage(onSellBoxClick = {navController.navigate(Routes.BusinessHome.route)})
+            BusinessSellBoxPage(navController = navController)
+
         }
+
+
         composable(Routes.BusinessProfile.route) {
             BusinessProfilePage(onLogOutClick = {navController.navigate(Routes.Login.route)}, onDeleteAccount = {navController.navigate(Routes.Login.route)})
         }

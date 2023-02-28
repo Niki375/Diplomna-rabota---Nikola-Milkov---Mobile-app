@@ -15,9 +15,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import diplomna.savemyfood.navigation.Routes
 
 @Composable
-fun BusinessSellBoxPage(onSellBoxClick:() -> Unit) {
+fun BusinessSellBoxPage(navController: NavController) {
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -66,7 +68,16 @@ fun BusinessSellBoxPage(onSellBoxClick:() -> Unit) {
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {onSellBoxClick()},
+                onClick = {
+                    onSellBoxClick(
+                        foodtype.value.text,
+                        description.value.text,
+                        pickup_time.value.text,
+                        price_per_box.value.text,
+                        quantity_of_boxes.value.text
+                    )
+                    navController.navigate(Routes.BusinessHome.route)
+                },
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
