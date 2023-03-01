@@ -39,6 +39,10 @@ class SignUpCustomerViewModel(private val authService: AuthService): ViewModel()
         viewModelScope.launch {
             authService.signup(email.value, password.value) { user, error ->
                 if (error == null && user != null) {
+                    val userDoc = db.collection("users").document(user.uid)
+                    val newUser = User(email.value, username.value)
+                    userDoc.set(newUser)
+
                     // success
                     _state.value = LinkState.Success
                 } else {
@@ -51,7 +55,7 @@ class SignUpCustomerViewModel(private val authService: AuthService): ViewModel()
 
     fun reset()
     {
-        _state.value = SignUpCustomerViewModel.LinkState.None
+        _state.value = LinkState.None
     }
 
 
