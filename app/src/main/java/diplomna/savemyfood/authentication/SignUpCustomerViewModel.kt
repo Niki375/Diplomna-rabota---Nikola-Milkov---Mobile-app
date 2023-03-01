@@ -35,12 +35,12 @@ class SignUpCustomerViewModel(private val authService: AuthService): ViewModel()
         _username.value = usernameInput
     }
 
-    fun createAccount() {
+    fun createAccount(isBusiness: Boolean = false) {
         viewModelScope.launch {
-            authService.signup(email.value, password.value) { user, error ->
+            authService.signup(email.value, password.value, isBusiness) { user, error ->
                 if (error == null && user != null) {
                     val userDoc = db.collection("users").document(user.uid)
-                    val newUser = User(email.value, username.value)
+                    val newUser = User(email.value, username.value, "", false)
                     userDoc.set(newUser)
 
                     // success

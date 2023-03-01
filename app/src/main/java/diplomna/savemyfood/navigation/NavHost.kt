@@ -9,7 +9,6 @@ import diplomna.savemyfood.authentication.*
 import diplomna.savemyfood.business.BusinessHomePage
 import diplomna.savemyfood.business.BusinessProfilePage
 import diplomna.savemyfood.business.BusinessSellBoxPage
-import diplomna.savemyfood.business.onSellBoxClick
 import diplomna.savemyfood.customer.CustomerCartPage
 import diplomna.savemyfood.customer.CustomerHomePage
 import diplomna.savemyfood.customer.CustomerMapPage

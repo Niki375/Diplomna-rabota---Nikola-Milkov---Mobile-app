@@ -44,7 +44,7 @@ class AuthServiceImpl: AuthService {
             }
     }
 
-    override fun signup(email: String, password: String, onResult: (FirebaseUser?, Throwable?) -> Unit) {
+    override fun signup(email: String, password: String, isBusiness: Boolean, onResult: (FirebaseUser?, Throwable?) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

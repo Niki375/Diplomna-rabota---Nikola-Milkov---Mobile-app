@@ -8,6 +8,7 @@ val db = Firebase.firestore
 data class User(
     val email: String = "",
     val username: String = "",
-    val address: String = ""
+    val address: String = "",
+    val isBusiness: Boolean = false
 )
 
