@@ -9,6 +9,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import diplomna.savemyfood.authentication.User
+import diplomna.savemyfood.business.Box
 import kotlinx.coroutines.tasks.await
 
 class AuthServiceImpl: AuthService {
@@ -76,6 +77,26 @@ class AuthServiceImpl: AuthService {
             } catch (e: Exception) {
                 null
             }
+        }
+    }
+
+
+    override suspend fun getBoxData(): List<Box>? {
+        val firestore = Firebase.firestore
+        val boxCollection = firestore.collection("boxes")
+        val query = boxCollection.whereEqualTo("email", Firebase.auth.currentUser?.email)
+
+        return try {
+            val result = query.get().await()
+            if (result.isEmpty) {
+                null
+            } else {
+                result.documents.mapNotNull { doc ->
+                    doc.toObject(Box::class.java)
+                }
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 

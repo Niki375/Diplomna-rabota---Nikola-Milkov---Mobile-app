@@ -13,21 +13,32 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
 @Composable
-fun BusinessHomePage(onAddBoxClick:() -> Unit) {
+fun BusinessHomePage(viewModel: BusinessHomeViewModel, onAddBoxClick: () -> Unit) {
+    // Call loadBoxes to get the data
+    viewModel.loadBoxes()
+    // Use viewModel.boxes to access the data
+    val boxes = viewModel.boxes.value
 
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Text(text = "Boxes", style = TextStyle(textDecoration = TextDecoration.Underline, textAlign = TextAlign.Center, fontSize = 40.sp))
+        Text(
+            text = "Boxes",
+            style = TextStyle(
+                textDecoration = TextDecoration.Underline,
+                textAlign = TextAlign.Center,
+                fontSize = 40.sp
+            )
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {onAddBoxClick()},
+                onClick = { onAddBoxClick() },
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -36,7 +47,15 @@ fun BusinessHomePage(onAddBoxClick:() -> Unit) {
                 Text(text = "Add a box")
             }
         }
+
+        boxes?.let {
+            for (box in it) {
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = box.food_type)
+                }
+            }
+        }
     }
-
-
 }
+
+

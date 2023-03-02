@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import diplomna.savemyfood.authentication.*
 import diplomna.savemyfood.business.BusinessHomePage
+import diplomna.savemyfood.business.BusinessHomeViewModel
 import diplomna.savemyfood.business.BusinessProfilePage
 import diplomna.savemyfood.business.BusinessSellBoxPage
 import diplomna.savemyfood.customer.CustomerCartPage
@@ -123,7 +124,9 @@ fun NavHost(navController: NavHostController) {
 
 
         composable(Routes.BusinessHome.route) {
-            BusinessHomePage(onAddBoxClick = {navController.navigate(Routes.BusinessSellBox.route)})
+            val viewModel = getViewModel<BusinessHomeViewModel>()
+
+            BusinessHomePage(viewModel = viewModel, onAddBoxClick = {navController.navigate(Routes.BusinessSellBox.route)})
         }
 
         composable(Routes.BusinessSellBox.route) {
