@@ -31,18 +31,20 @@ fun NavHost(navController: NavHostController) {
             val password by viewModel.password.collectAsState()
             val LoginState by viewModel.state.collectAsState()
 
+
+
             LoginPage(
                 onForgotPasswordClick = { navController.navigate(Routes.ForgotPassword.route) },
                 onSignUpHereClick = { navController.navigate(Routes.SignUpType.route) },
                 onLoginClick = {viewModel.authenticate()},
                 successfulLogin = {
-                    navController.navigate(Routes.CustomerHome.route)
                     viewModel.reset()
                 },
                 email = email, password = password,
                 setEmail = { viewModel.setEmail(it) },
                 setPassword = { viewModel.setPassword(it) },
-                state = LoginState
+                state = LoginState,
+                navController = navController
             )
         }
 

@@ -8,8 +8,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
@@ -17,10 +15,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import diplomna.savemyfood.navigation.Routes
 
 @Composable
 fun LoginPage(
@@ -32,20 +31,29 @@ fun LoginPage(
     password: String,
     setEmail: (String) -> Unit,
     setPassword: (String) -> Unit,
-    state: LoginViewModel.LoginState
+    state: LoginViewModel.LoginState,
+    navController: NavController
 ) {
 
 
     when (state) {
-        LoginViewModel.LoginState.Error -> {
-
-        }
         LoginViewModel.LoginState.None -> {
+            // handle none state
         }
-        LoginViewModel.LoginState.Success -> {
+        LoginViewModel.LoginState.Error -> {
+            // handle error state
+        }
+        LoginViewModel.LoginState.SuccessCustomer -> {
             successfulLogin()
+            navController.navigate(Routes.CustomerHome.route)
+        }
+        LoginViewModel.LoginState.SuccessBusiness -> {
+            successfulLogin()
+            navController.navigate(Routes.BusinessHome.route)
         }
     }
+
+
 
     Column(
         modifier = Modifier.padding(20.dp),

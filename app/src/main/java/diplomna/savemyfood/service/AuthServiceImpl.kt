@@ -1,8 +1,15 @@
 package diplomna.savemyfood.service
 
+import android.content.ContentValues
+import android.util.Log
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import diplomna.savemyfood.authentication.User
+import kotlinx.coroutines.tasks.await
 
 class AuthServiceImpl: AuthService {
 
@@ -55,4 +62,22 @@ class AuthServiceImpl: AuthService {
                 }
             }
     }
+
+    override suspend fun getUserData(): User? {
+        val currentUser = Firebase.auth.currentUser
+        return currentUser?.let {
+            val firestore = Firebase.firestore
+            val usersCollection = firestore.collection("users")
+            val query = usersCollection.whereEqualTo("email", currentUser.email)
+            Log.d(ContentValues.TAG, "email: ${currentUser.email}")
+            return@let try {
+                val userData = query.get().await().documents[0].toObject(User::class.java)
+                userData
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+
 }

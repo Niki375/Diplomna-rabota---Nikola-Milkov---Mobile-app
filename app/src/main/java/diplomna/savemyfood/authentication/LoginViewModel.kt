@@ -1,12 +1,16 @@
 package diplomna.savemyfood.authentication
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import diplomna.savemyfood.service.AuthService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginViewModel(private val authService: AuthService): ViewModel() {
 
@@ -28,11 +32,26 @@ class LoginViewModel(private val authService: AuthService): ViewModel() {
         _password.value = passwordInput
     }
 
+    private val _user = MutableStateFlow<User?>(null)
+
     fun authenticate() {
         viewModelScope.launch {
             authService.authenticate(email.value, password.value) { error ->
                 if (error == null) {
-                    _state.value = LoginState.Success
+                    viewModelScope.launch(Dispatchers.IO) {
+                        val user = authService.getUserData()
+                        Log.d(TAG, "User is $user")
+                        withContext(Dispatchers.Main) {
+                            _user.value = user
+                            _state.value = if (user?.business == true) {
+                                Log.d(TAG, "User is a business")
+                                LoginState.SuccessBusiness
+                            } else {
+                                Log.d(TAG, "User is a customer")
+                                LoginState.SuccessCustomer
+                            }
+                        }
+                    }
                 } else {
                     _state.value = LoginState.Error
                 }
@@ -40,15 +59,14 @@ class LoginViewModel(private val authService: AuthService): ViewModel() {
         }
     }
 
-fun reset()
-{
-    _state.value = LoginState.None
-}
-
+    fun reset() {
+        _state.value = LoginState.None
+    }
 
     sealed class LoginState {
-        object None :  LoginState()
-        object Success :  LoginState()
-        object Error :  LoginState()
+        object None : LoginState()
+        object SuccessCustomer : LoginState()
+        object SuccessBusiness : LoginState()
+        object Error : LoginState()
     }
 }
