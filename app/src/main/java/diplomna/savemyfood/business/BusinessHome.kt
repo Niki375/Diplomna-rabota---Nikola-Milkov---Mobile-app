@@ -48,6 +48,7 @@ fun BusinessHomePage(viewModel: BusinessHomeViewModel, onAddBoxClick: () -> Unit
             }
         }
 
+        Spacer(modifier = Modifier.height(20.dp))
         boxes?.let {
             for (box in it) {
                 Button(onClick = { /*TODO*/ }) {

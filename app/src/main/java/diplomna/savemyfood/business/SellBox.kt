@@ -2,6 +2,7 @@ package diplomna.savemyfood.business
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -14,6 +15,8 @@ fun onSellBoxClick(
 ) {
     // Create a Firestore instance
     val db = Firebase.firestore
+    // Get the current user
+    val user_email = Firebase.auth.currentUser?.email
 
     // Create a HashMap object with the box data
     val box = hashMapOf(
@@ -21,7 +24,8 @@ fun onSellBoxClick(
         "description" to description,
         "pickup_time" to pickupTime,
         "price_per_box" to pricePerBox,
-        "quantity_of_boxes" to quantityOfBoxes
+        "quantity_of_boxes" to quantityOfBoxes,
+        "email" to user_email
     )
 
     // Add the box data to the "boxes" collection
