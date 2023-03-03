@@ -9,6 +9,8 @@ data class User(
     val email: String = "",
     val username: String = "",
     val address: String = "",
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
     val business: Boolean = false,
     val money: Float = 0.0f
 )

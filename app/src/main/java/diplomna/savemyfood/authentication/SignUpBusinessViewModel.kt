@@ -43,12 +43,26 @@ class SignUpBusinessViewModel(private val authService: AuthService): ViewModel()
         _address.value = addressInput
     }
 
+    private val _latitude = MutableStateFlow(0.0)
+    val latitude: StateFlow<Double> = _latitude
+
+    fun setLatitude(latitudeInput: Double) {
+        _latitude.value = latitudeInput
+    }
+
+    private val _longitude = MutableStateFlow(0.0)
+    val longitude: StateFlow<Double> = _longitude
+
+    fun setLongitude(longitudeInput: Double) {
+        _longitude.value = longitudeInput
+    }
+
     fun createAccount() {
         viewModelScope.launch {
             authService.signup(email.value, password.value, true) { user, error ->
                 if (error == null && user != null) {
                     val userDoc = db.collection("users").document(user.uid)
-                    val newUser = User(email.value, username.value, address.value, true)
+                    val newUser = User(email.value, username.value, address.value, latitude.value, longitude.value, true)
                     userDoc.set(newUser)
 
                     // success

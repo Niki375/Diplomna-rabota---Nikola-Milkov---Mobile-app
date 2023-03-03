@@ -30,10 +30,14 @@ fun BusinessSignUpPage(onSignUpClick: () -> Unit,
                        email: String,
                        password: String,
                        address: String,
+                       latitude: Double,
+                       longitude: Double,
                        setUsername: (String) -> Unit,
                        setEmail: (String) -> Unit,
                        setPassword: (String) -> Unit,
                        setAddress: (String) -> Unit,
+                       setLatitude: (Double) -> Unit,
+                       setLongitude: (Double) -> Unit,
                        state: SignUpBusinessViewModel.LinkState
 ) {
 
@@ -87,6 +91,22 @@ fun BusinessSignUpPage(onSignUpClick: () -> Unit,
             value = address,
             onValueChange = { setAddress(it) })
 
+        Spacer(modifier = Modifier.height(20.dp))
+        val latitude = remember { mutableStateOf(TextFieldValue()) }
+        TextField(
+            value = latitude.value,
+            onValueChange = { latitude.value = it; setLatitude(it.text.toDouble()) },
+            label = { Text(text = "Latitude") }
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+        val longitude = remember { mutableStateOf(TextFieldValue()) }
+        TextField(
+            value = longitude.value,
+            onValueChange = { longitude.value = it; setLongitude(it.text.toDouble()) },
+            label = { Text(text = "Longitude") }
+        )
+
         /*Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Confirm Password") },
@@ -106,7 +126,7 @@ fun BusinessSignUpPage(onSignUpClick: () -> Unit,
             }
         }
 
-        Text(text = "Already have an account?", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp))
+        Text(text = "Already have an account?", textAlign = TextAlign.Center, style = TextStyle(fontSize = 15.sp))
 
 
         Box(modifier = Modifier.fillMaxSize()) {

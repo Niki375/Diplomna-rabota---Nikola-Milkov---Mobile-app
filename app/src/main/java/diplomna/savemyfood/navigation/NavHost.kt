@@ -79,6 +79,8 @@ fun NavHost(navController: NavHostController) {
             val email by viewModel.email.collectAsState()
             val password by viewModel.password.collectAsState()
             val address by viewModel.address.collectAsState()
+            val latitude by viewModel.latitude.collectAsState()
+            val longitude by viewModel.longitude.collectAsState()
             val LinkState by viewModel.state.collectAsState()
 
             BusinessSignUpPage(
@@ -89,10 +91,14 @@ fun NavHost(navController: NavHostController) {
                     viewModel.reset()
                 },
                 username = username, email = email, password = password, address = address,
+                latitude = latitude, longitude = longitude,
+
                 setUsername = {viewModel.setUsername(it)},
                 setEmail = {viewModel.setEmail(it)},
                 setPassword = {viewModel.setPassword(it)},
                 setAddress = {viewModel.setAddress(it)},
+                setLatitude = {viewModel.setLatitude(it)},
+                setLongitude = {viewModel.setLongitude(it)},
                 state = LinkState)
         }
 
@@ -113,7 +119,9 @@ fun NavHost(navController: NavHostController) {
             CustomerCartPage(viewModel = viewModel)
         }
         composable(Routes.CustomerMap.route) {
-            CustomerMapPage()
+            val viewModel = getViewModel<CustomerMapViewModel>()
+
+            CustomerMapPage(viewModel = viewModel)
         }
         composable(Routes.CustomerProfile.route) {
                 val viewModel = getViewModel<CustomerProfileViewModel>()

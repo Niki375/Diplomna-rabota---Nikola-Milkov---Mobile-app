@@ -7,6 +7,7 @@ import diplomna.savemyfood.business.BusinessHomeViewModel
 import diplomna.savemyfood.business.BusinessProfileViewModel
 import diplomna.savemyfood.customer.CustomerCartViewModel
 import diplomna.savemyfood.customer.CustomerHomeViewModel
+import diplomna.savemyfood.customer.CustomerMapViewModel
 import diplomna.savemyfood.customer.CustomerProfileViewModel
 import diplomna.savemyfood.service.AuthService
 import diplomna.savemyfood.service.AuthServiceImpl
@@ -25,4 +26,5 @@ val appModules = module {
     viewModel<CustomerCartViewModel>()
     viewModel<CustomerProfileViewModel>()
     viewModel<BusinessProfileViewModel>()
+    viewModel<CustomerMapViewModel>()
 }

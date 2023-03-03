@@ -1,12 +1,10 @@
 package diplomna.savemyfood.customer
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import diplomna.savemyfood.authentication.User
-import diplomna.savemyfood.business.Box
 import diplomna.savemyfood.service.AuthServiceImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
