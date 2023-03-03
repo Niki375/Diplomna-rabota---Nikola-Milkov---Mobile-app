@@ -1,5 +1,6 @@
 package diplomna.savemyfood.customer
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -19,8 +20,15 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun CustomerProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
+fun CustomerProfilePage(
+    onLogOutClick:() -> Unit,
+    onDeleteAccount: () -> Unit,
+    viewModel: CustomerProfileViewModel
+) {
+
+    viewModel.getUser()
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -28,34 +36,45 @@ fun CustomerProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val money = remember { mutableStateOf(TextFieldValue()) }
-        val username = remember { mutableStateOf(TextFieldValue()) }
-        val email = remember { mutableStateOf(TextFieldValue()) }
-
         Text(text = "Profile", style = TextStyle(fontSize = 40.sp))
-
         Spacer(modifier = Modifier.height(20.dp))
+
+        Text(text = "Username: ${viewModel.user.value?.username}", style = TextStyle(fontSize = 20.sp))
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(text = "Email: ${viewModel.user.value?.email}", style = TextStyle(fontSize = 20.sp))
+        Spacer(modifier = Modifier.height(20.dp))
+
+        val money = remember { mutableStateOf(TextFieldValue()) }
         TextField(
-            label = { Text(text = "Money") },
             value = money.value,
-            onValueChange = { money.value = it })
+            onValueChange = { money.value = it },
+            label = { Text(text = "Money") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Username") },
-            value = username.value,
-            onValueChange = { username.value = it })
+
+        Button(
+            onClick = {
+                viewModel.addMoney(money.value.text.toFloat());
+                money.value = TextFieldValue()
+                      },
+            shape = RoundedCornerShape(50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Text(text = "Add money")
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Email") },
-            value = email.value,
-            onValueChange = { email.value = it })
 
-        Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {onLogOutClick()},
+                onClick = {onLogOutClick(); viewModel.logOut()},
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -65,6 +84,7 @@ fun CustomerProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
             }
         }
     }
+    Spacer(modifier = Modifier.height(20.dp))
 
     Box(modifier = Modifier.fillMaxSize()) {
         ClickableText(
@@ -72,8 +92,7 @@ fun CustomerProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(20.dp),
-            onClick = {onDeleteAccount()
-            },
+            onClick = {onDeleteAccount(); viewModel.deleteAccount()},
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily.Default,

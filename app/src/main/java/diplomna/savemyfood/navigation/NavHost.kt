@@ -6,10 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import diplomna.savemyfood.authentication.*
-import diplomna.savemyfood.business.BusinessHomePage
-import diplomna.savemyfood.business.BusinessHomeViewModel
-import diplomna.savemyfood.business.BusinessProfilePage
-import diplomna.savemyfood.business.BusinessSellBoxPage
+import diplomna.savemyfood.business.*
 import diplomna.savemyfood.customer.*
 import org.koin.androidx.compose.getViewModel
 
@@ -111,15 +108,22 @@ fun NavHost(navController: NavHostController) {
         }
 
         composable(Routes.CustomerCart.route) {
-            CustomerCartPage()
+            val viewModel = getViewModel<CustomerCartViewModel>()
+
+            CustomerCartPage(viewModel = viewModel)
         }
         composable(Routes.CustomerMap.route) {
             CustomerMapPage()
         }
         composable(Routes.CustomerProfile.route) {
+                val viewModel = getViewModel<CustomerProfileViewModel>()
+
             CustomerProfilePage(
+                viewModel = viewModel,
                 onLogOutClick = {navController.navigate(Routes.Login.route)},
-                onDeleteAccount = {navController.navigate(Routes.Login.route)})
+                onDeleteAccount = {navController.navigate(Routes.Login.route)}
+            )
+
         }
 
 
@@ -136,7 +140,12 @@ fun NavHost(navController: NavHostController) {
 
 
         composable(Routes.BusinessProfile.route) {
-            BusinessProfilePage(onLogOutClick = {navController.navigate(Routes.Login.route)}, onDeleteAccount = {navController.navigate(Routes.Login.route)})
+            val viewModel = getViewModel<BusinessProfileViewModel>()
+
+            BusinessProfilePage(
+                onLogOutClick = {navController.navigate(Routes.Login.route)},
+                onDeleteAccount = {navController.navigate(Routes.Login.route)},
+                viewModel = viewModel)
         }
 
     }

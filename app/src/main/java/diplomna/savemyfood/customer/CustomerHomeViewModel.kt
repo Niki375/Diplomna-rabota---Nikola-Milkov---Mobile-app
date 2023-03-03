@@ -21,7 +21,7 @@ class CustomerHomeViewModel : ViewModel() {
         viewModelScope.launch {
             val firestore = Firebase.firestore
             val boxCollection = firestore.collection("boxes")
-            val query = boxCollection.whereEqualTo("isBought", false)
+            val query = boxCollection.whereEqualTo("bought", false)
             val boxes = query.get().await().toObjects(Box::class.java)
             _boxes.value = boxes
         }
@@ -48,7 +48,7 @@ class CustomerHomeViewModel : ViewModel() {
                 "box_id" to box.id
             )
             firestore.collection("orders").add(order)
-            firestore.collection("boxes").document(box.id).update("isBought", true)
+            firestore.collection("boxes").document(box.id).update("bought", true)
             loadBoxes()
         }
     }

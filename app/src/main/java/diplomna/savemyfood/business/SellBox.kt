@@ -24,7 +24,7 @@ fun onSellBoxClick(
         "pickup_time" to pickupTime,
         "price_per_box" to pricePerBox,
         "email" to user_email,
-        "isBought" to false
+        "bought" to false
     )
 
     // Add the box data to the "boxes" collection
@@ -38,7 +38,7 @@ fun onSellBoxClick(
                 "pickup_time" to pickupTime,
                 "price_per_box" to pricePerBox,
                 "email" to user_email,
-                "isBought" to false,
+                "bought" to false,
                 "id" to boxId
             )
             // Update the document with the box data, including the generated ID

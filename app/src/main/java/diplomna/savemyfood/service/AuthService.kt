@@ -10,5 +10,5 @@ interface AuthService {
     fun linkAccount(email: String, password: String, onResult: (Throwable?) -> Unit)
     fun signup(email: String, password: String, isBusiness: Boolean, onResult: (FirebaseUser?, Throwable?) -> Unit)
     suspend fun getUserData(): User?
-    suspend fun getBoxData(): List<Box>?
+    //suspend fun getBoxData(): List<Box>?
 }

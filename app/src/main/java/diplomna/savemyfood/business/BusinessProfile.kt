@@ -1,5 +1,6 @@
 package diplomna.savemyfood.business
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -18,9 +19,17 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import diplomna.savemyfood.customer.CustomerProfileViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun BusinessProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
+fun BusinessProfilePage(
+    onLogOutClick:() -> Unit,
+    onDeleteAccount: () -> Unit,
+    viewModel: BusinessProfileViewModel
+) {
+
+    viewModel.getUser()
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -28,34 +37,23 @@ fun BusinessProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val business_name = remember { mutableStateOf(TextFieldValue()) }
-        val address = remember { mutableStateOf(TextFieldValue()) }
-        val email = remember { mutableStateOf(TextFieldValue()) }
-
         Text(text = "Profile", style = TextStyle(fontSize = 40.sp))
-
         Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Business name") },
-            value = business_name.value,
-            onValueChange = { business_name.value = it })
 
+        Text(text = "Username: ${viewModel.user.value?.username}", style = TextStyle(fontSize = 20.sp))
         Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Address") },
-            value = address.value,
-            onValueChange = { address.value = it })
 
+        Text(text = "Email: ${viewModel.user.value?.email}", style = TextStyle(fontSize = 20.sp))
         Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Email") },
-            value = email.value,
-            onValueChange = { email.value = it })
+
+        Text(text = "Address: ${viewModel.user.value?.address}", style = TextStyle(fontSize = 20.sp))
+        Spacer(modifier = Modifier.height(20.dp))
+
 
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {onLogOutClick()},
+                onClick = {onLogOutClick(); viewModel.logOut()},
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -63,7 +61,9 @@ fun BusinessProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
             ) {
                 Text(text = "Log out")
             }
-        }    }
+        }
+    }
+    Spacer(modifier = Modifier.height(20.dp))
 
     Box(modifier = Modifier.fillMaxSize()) {
         ClickableText(
@@ -71,8 +71,7 @@ fun BusinessProfilePage(onLogOutClick:() -> Unit, onDeleteAccount: () -> Unit) {
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(20.dp),
-            onClick = {onDeleteAccount()
-            },
+            onClick = {onDeleteAccount(); viewModel.deleteAccount()},
             style = TextStyle(
                 fontSize = 14.sp,
                 fontFamily = FontFamily.Default,
