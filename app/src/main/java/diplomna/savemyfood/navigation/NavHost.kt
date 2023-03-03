@@ -10,10 +10,7 @@ import diplomna.savemyfood.business.BusinessHomePage
 import diplomna.savemyfood.business.BusinessHomeViewModel
 import diplomna.savemyfood.business.BusinessProfilePage
 import diplomna.savemyfood.business.BusinessSellBoxPage
-import diplomna.savemyfood.customer.CustomerCartPage
-import diplomna.savemyfood.customer.CustomerHomePage
-import diplomna.savemyfood.customer.CustomerMapPage
-import diplomna.savemyfood.customer.CustomerProfilePage
+import diplomna.savemyfood.customer.*
 import org.koin.androidx.compose.getViewModel
 
 
@@ -108,8 +105,11 @@ fun NavHost(navController: NavHostController) {
 
 
         composable(Routes.CustomerHome.route) {
-            CustomerHomePage()
+            val viewModel = getViewModel<CustomerHomeViewModel>()
+
+            CustomerHomePage(viewModel = viewModel)
         }
+
         composable(Routes.CustomerCart.route) {
             CustomerCartPage()
         }
