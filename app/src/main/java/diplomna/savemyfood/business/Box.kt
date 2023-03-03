@@ -10,5 +10,6 @@ data class Box(
     val description: String = "",
     val pickup_time: String = "",
     val price_per_box: String = "",
-    val quantity_of_boxes: String = ""
+    val quantity_of_boxes: String = "",
+    val isBought: Boolean = false
 )

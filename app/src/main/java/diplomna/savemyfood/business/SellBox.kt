@@ -25,7 +25,8 @@ fun onSellBoxClick(
         "pickup_time" to pickupTime,
         "price_per_box" to pricePerBox,
         "quantity_of_boxes" to quantityOfBoxes,
-        "email" to user_email
+        "email" to user_email,
+        "isBought" to false
     )
 
     // Add the box data to the "boxes" collection
