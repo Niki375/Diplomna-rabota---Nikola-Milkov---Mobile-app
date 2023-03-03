@@ -33,9 +33,30 @@ fun onSellBoxClick(
     db.collection("boxes")
         .add(box)
         .addOnSuccessListener { documentReference ->
-            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            val boxId = documentReference.id
+            val boxData = hashMapOf(
+                "food_type" to foodType,
+                "description" to description,
+                "pickup_time" to pickupTime,
+                "price_per_box" to pricePerBox,
+                "quantity_of_boxes" to quantityOfBoxes,
+                "email" to user_email,
+                "isBought" to false,
+                "id" to boxId
+            )
+            // Update the document with the box data, including the generated ID
+            db.collection("boxes")
+                .document(boxId)
+                .update(boxData as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot added with ID: $boxId")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
         }
         .addOnFailureListener { e ->
             Log.w(TAG, "Error adding document", e)
         }
+
 }
