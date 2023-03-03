@@ -10,8 +10,7 @@ fun onSellBoxClick(
     foodType: String,
     description: String,
     pickupTime: String,
-    pricePerBox: String,
-    quantityOfBoxes: String
+    pricePerBox: Float
 ) {
     // Create a Firestore instance
     val db = Firebase.firestore
@@ -24,7 +23,6 @@ fun onSellBoxClick(
         "description" to description,
         "pickup_time" to pickupTime,
         "price_per_box" to pricePerBox,
-        "quantity_of_boxes" to quantityOfBoxes,
         "email" to user_email,
         "isBought" to false
     )
@@ -39,7 +37,6 @@ fun onSellBoxClick(
                 "description" to description,
                 "pickup_time" to pickupTime,
                 "price_per_box" to pricePerBox,
-                "quantity_of_boxes" to quantityOfBoxes,
                 "email" to user_email,
                 "isBought" to false,
                 "id" to boxId

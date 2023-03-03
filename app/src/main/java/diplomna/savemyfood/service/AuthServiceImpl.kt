@@ -100,25 +100,22 @@ class AuthServiceImpl: AuthService {
         }
     }
 
-     suspend fun getAllBoxData(): List<Box>? {
-        val firestore = Firebase.firestore
-        val boxCollection = firestore.collection("boxes")
-        val query = boxCollection
-
-        return try {
-            val result = query.get().await()
-            if (result.isEmpty) {
-                null
-            } else {
-                result.documents.mapNotNull { doc ->
-                    doc.toObject(Box::class.java)
-                }
-            }
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-
-
+//     suspend fun getAllBoxData(): List<Box>? {
+//        val firestore = Firebase.firestore
+//        val boxCollection = firestore.collection("boxes")
+//        val query = boxCollection
+//
+//        return try {
+//            val result = query.get().await()
+//            if (result.isEmpty) {
+//                null
+//            } else {
+//                result.documents.mapNotNull { doc ->
+//                    doc.toObject(Box::class.java)
+//                }
+//            }
+//        } catch (e: Exception) {
+//            null
+//        }
+//    }
 }

@@ -31,7 +31,6 @@ fun BusinessSellBoxPage(navController: NavController) {
         val description = remember { mutableStateOf(TextFieldValue()) }
         val pickup_time = remember { mutableStateOf(TextFieldValue()) }
         val price_per_box = remember { mutableStateOf(TextFieldValue()) }
-        val quantity_of_boxes = remember { mutableStateOf(TextFieldValue())}
 
         Text(text = "Add a box", style = TextStyle(textDecoration = TextDecoration.Underline, fontSize = 40.sp))
 
@@ -60,12 +59,6 @@ fun BusinessSellBoxPage(navController: NavController) {
             onValueChange = { price_per_box.value = it })
 
         Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Boxes available") },
-            value = quantity_of_boxes.value,
-            onValueChange = { quantity_of_boxes.value = it })
-
-        Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
                 onClick = {
@@ -73,8 +66,7 @@ fun BusinessSellBoxPage(navController: NavController) {
                         foodtype.value.text,
                         description.value.text,
                         pickup_time.value.text,
-                        price_per_box.value.text,
-                        quantity_of_boxes.value.text
+                        price_per_box.value.text.toFloat()
                     )
                     navController.navigate(Routes.BusinessHome.route)
                 },
