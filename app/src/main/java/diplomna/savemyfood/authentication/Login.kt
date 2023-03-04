@@ -77,17 +77,18 @@ fun LoginPage(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             onValueChange = { setPassword(it) })
 
-
         Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = {onLoginClick()},
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Log in")
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                Button(
+                    onClick = { onLoginClick() },
+                    shape = RoundedCornerShape(50.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                ) {
+                    Text(text = "Log in")
+                }
             }
         }
 

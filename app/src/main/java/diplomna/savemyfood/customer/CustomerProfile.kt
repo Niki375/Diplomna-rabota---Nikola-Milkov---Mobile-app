@@ -39,7 +39,10 @@ fun CustomerProfilePage(
         Text(text = "Profile", style = TextStyle(fontSize = 40.sp))
         Spacer(modifier = Modifier.height(20.dp))
 
-        Text(text = "Username: ${viewModel.user.value?.username}", style = TextStyle(fontSize = 20.sp))
+        Text(
+            text = "Username: ${viewModel.user.value?.username}",
+            style = TextStyle(fontSize = 20.sp)
+        )
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Email: ${viewModel.user.value?.email}", style = TextStyle(fontSize = 20.sp))
@@ -57,24 +60,25 @@ fun CustomerProfilePage(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(
-            onClick = {
-                viewModel.addMoney(money.value.text.toFloat());
-                money.value = TextFieldValue()
-                      },
-            shape = RoundedCornerShape(50.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-        ) {
-            Text(text = "Add money")
+        if (money.value.text.isNotEmpty()) {
+            Button(
+                onClick = {
+                    viewModel.addMoney(money.value.text.toFloat());
+                    money.value = TextFieldValue()
+                },
+                shape = RoundedCornerShape(50.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(text = "Add money")
+            }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = {onLogOutClick(); viewModel.logOut()},
+                onClick = { onLogOutClick(); viewModel.logOut() },
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()

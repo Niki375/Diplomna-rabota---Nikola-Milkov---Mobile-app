@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ForgotPasswordPage(onSubmitClick:() -> Unit) {
+fun ForgotPasswordPage(
+    onSubmitClick:() -> Unit,
+    viewModel: ForgotPasswordViewModel) {
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -36,15 +38,17 @@ fun ForgotPasswordPage(onSubmitClick:() -> Unit) {
             onValueChange = { email.value = it })
 
         Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = {onSubmitClick()},
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Submit")
+        if(email.value.text.isNotEmpty()) {
+            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                Button(
+                    onClick = { onSubmitClick(); viewModel.resetPassword(email.value.text) },
+                    shape = RoundedCornerShape(50.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                ) {
+                    Text(text = "Submit")
+                }
             }
         }
     }

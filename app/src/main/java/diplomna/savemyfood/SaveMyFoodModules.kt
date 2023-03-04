@@ -1,5 +1,6 @@
 package diplomna.savemyfood
 
+import diplomna.savemyfood.authentication.ForgotPasswordViewModel
 import diplomna.savemyfood.authentication.LoginViewModel
 import diplomna.savemyfood.authentication.SignUpBusinessViewModel
 import diplomna.savemyfood.authentication.SignUpCustomerViewModel
@@ -27,4 +28,5 @@ val appModules = module {
     viewModel<CustomerProfileViewModel>()
     viewModel<BusinessProfileViewModel>()
     viewModel<CustomerMapViewModel>()
+    viewModel<ForgotPasswordViewModel>()
 }

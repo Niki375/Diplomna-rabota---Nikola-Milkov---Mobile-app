@@ -85,18 +85,19 @@ fun CustomerSignUpPage(onSignUpClick: () -> Unit,
             onValueChange = { confirmPassword.value = it })*/
 
         Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(onClick = {
-                // Call the createAccount function with the email and password
+        if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                Button(onClick = {
+                    // Call the createAccount function with the email and password
 //                EmailPasswordActivity().createAccount(email.value.text, password.value.text)
-                onSignUpClick()
-            }) {
-                Text("Create Account")
+                    onSignUpClick()
+                }) {
+                    Text("Create Account")
+                }
             }
         }
 
         Text(text = "Already have an account?", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp))
-
 
         Box(modifier = Modifier.fillMaxSize()) {
             ClickableText(

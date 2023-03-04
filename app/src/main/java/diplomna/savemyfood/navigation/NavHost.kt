@@ -103,7 +103,11 @@ fun NavHost(navController: NavHostController) {
         }
 
         composable(Routes.ForgotPassword.route) {
-            ForgotPasswordPage(onSubmitClick = {})
+            val viewModel = getViewModel<ForgotPasswordViewModel>()
+
+            ForgotPasswordPage(
+                onSubmitClick = {navController.navigate(Routes.Login.route)},
+                viewModel = viewModel)
         }
 
 

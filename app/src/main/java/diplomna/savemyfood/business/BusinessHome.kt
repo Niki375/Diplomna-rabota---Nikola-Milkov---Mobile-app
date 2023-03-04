@@ -56,8 +56,8 @@ fun BusinessHomePage(viewModel: BusinessHomeViewModel, onAddBoxClick: () -> Unit
         Spacer(modifier = Modifier.height(20.dp))
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(boxes ?: emptyList()) { box ->
-                val boughtBox = Color.Green.copy(alpha = 0.7f)
-                val notBoughtBox = Color.Red.copy(alpha = 0.7f)
+                val boughtBox = Color.Red.copy(alpha = 0.7f)
+                val notBoughtBox = Color.Green.copy(alpha = 0.7f)
                 var color = notBoughtBox
                 println(box.bought)
                 if (box.bought) {

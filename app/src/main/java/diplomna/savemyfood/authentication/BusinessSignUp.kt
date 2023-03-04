@@ -116,13 +116,15 @@ fun BusinessSignUpPage(onSignUpClick: () -> Unit,
             onValueChange = { confirmPassword.value = it })*/
 
         Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(onClick = {
-                // Call the createAccount function with the email and password
+        if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && address.isNotEmpty() && latitude.value.text.isNotEmpty() && longitude.value.text.isNotEmpty()) {
+            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                Button(onClick = {
+                    // Call the createAccount function with the email and password
 //                EmailPasswordActivity().createAccount(email.value.text, password.value.text)
-                onSignUpClick()
-            }) {
-                Text("Create Account")
+                    onSignUpClick()
+                }) {
+                    Text("Create Account")
+                }
             }
         }
 
