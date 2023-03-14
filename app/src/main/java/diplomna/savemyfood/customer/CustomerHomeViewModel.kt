@@ -44,8 +44,14 @@ class CustomerHomeViewModel : ViewModel() {
                     }
                 }
             val order = hashMapOf(
+                "food_type" to box.food_type,
+                "description" to box.description,
+                "price" to box.price_per_box,
                 "user_email" to user.email,
-                "box_id" to box.id
+                "business_email" to box.email,
+                "box_id" to box.id,
+                "pickup_time" to box.pickup_time,
+                "address" to box.address
             )
             firestore.collection("orders").add(order)
             firestore.collection("boxes").document(box.id).update("bought", true)

@@ -1,6 +1,5 @@
 package diplomna.savemyfood.customer
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -45,16 +44,18 @@ class CustomerMapViewModel : ViewModel() {
         }
     }
 
-    fun updateMapMarkers(mapView: MapView, geoPoints: List<LocationData>?) {
+    fun updateMapMarkers(mapView: MapView, geoPoints: List<LocationData>?, deletedBusinesses: List<String>?) {
         mapView.overlays.clear()
 
         geoPoints?.forEach {
-            val marker = Marker(mapView)
-            marker.position = it.geoPoint // Latitude and longitude of the marker
-            marker.title = it.name // Title of the marker
-            marker.snippet = it.address // Description of the marker
-            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            mapView.overlays.add(marker)
+            if (deletedBusinesses == null || it.name !in deletedBusinesses) {
+                val marker = Marker(mapView)
+                marker.position = it.geoPoint // Latitude and longitude of the marker
+                marker.title = it.name // Title of the marker
+                marker.snippet = it.address // Description of the marker
+                marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                mapView.overlays.add(marker)
+            }
         }
 
         mapView.invalidate()

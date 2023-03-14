@@ -56,6 +56,7 @@ fun NavHost(navController: NavHostController) {
             val username by viewModel.username.collectAsState()
             val email by viewModel.email.collectAsState()
             val password by viewModel.password.collectAsState()
+            val confirmPassword by viewModel.confirmPassword.collectAsState()
             val linkState by viewModel.state.collectAsState()
 
             CustomerSignUpPage(
@@ -66,9 +67,11 @@ fun NavHost(navController: NavHostController) {
                     viewModel.reset()
                 },
                 username = username, email = email, password = password,
+                confirmPassword = confirmPassword,
                 setUsername = {viewModel.setUsername(it)},
                 setEmail = {viewModel.setEmail(it)},
                 setPassword = {viewModel.setPassword(it)},
+                setConfirmPassword = {viewModel.setConfirmPassword(it)},
                 state = linkState)
         }
 
@@ -78,10 +81,11 @@ fun NavHost(navController: NavHostController) {
             val username by viewModel.username.collectAsState()
             val email by viewModel.email.collectAsState()
             val password by viewModel.password.collectAsState()
+            val confirmPassword by viewModel.confirmPassword.collectAsState()
             val address by viewModel.address.collectAsState()
             val latitude by viewModel.latitude.collectAsState()
             val longitude by viewModel.longitude.collectAsState()
-            val LinkState by viewModel.state.collectAsState()
+            val linkState by viewModel.state.collectAsState()
 
             BusinessSignUpPage(
                 onSignUpClick = {viewModel.createAccount()},
@@ -90,16 +94,20 @@ fun NavHost(navController: NavHostController) {
                     navController.navigate(Routes.BusinessHome.route)
                     viewModel.reset()
                 },
-                username = username, email = email, password = password, address = address,
-                latitude = latitude, longitude = longitude,
+                username = username,
+                email = email,
+                password = password,
+                confirmPassword = confirmPassword,
+                address = address,
 
                 setUsername = {viewModel.setUsername(it)},
                 setEmail = {viewModel.setEmail(it)},
                 setPassword = {viewModel.setPassword(it)},
+                setConfirmPassword = {viewModel.setConfirmPassword(it)},
                 setAddress = {viewModel.setAddress(it)},
                 setLatitude = {viewModel.setLatitude(it)},
                 setLongitude = {viewModel.setLongitude(it)},
-                state = LinkState)
+                state = linkState)
         }
 
         composable(Routes.ForgotPassword.route) {

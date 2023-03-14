@@ -2,7 +2,6 @@ package diplomna.savemyfood.service
 
 import com.google.firebase.auth.FirebaseUser
 import diplomna.savemyfood.authentication.User
-import diplomna.savemyfood.business.Box
 
 interface AuthService {
     fun createAccount(onResult: (Throwable?) -> Unit)

@@ -19,9 +19,9 @@ val appModules = module {
 
     factory<AuthService> { AuthServiceImpl() }
 
-    viewModel { SignUpCustomerViewModel(get()) }
-    viewModel { SignUpBusinessViewModel(get()) }
-    viewModel { LoginViewModel(get()) }
+    viewModel<SignUpCustomerViewModel>()
+    viewModel<SignUpBusinessViewModel>()
+    viewModel<LoginViewModel>()
     viewModel<BusinessHomeViewModel>()
     viewModel<CustomerHomeViewModel>()
     viewModel<CustomerCartViewModel>()

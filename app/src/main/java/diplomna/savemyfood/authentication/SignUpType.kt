@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -53,21 +54,31 @@ fun SignUpTypePage(onCustomerClick:() -> Unit, onBusinessClick:() -> Unit, onLog
             }
         }
 
-        Text(text = "Already have an account?", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp))
-    }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        ClickableText(
-            text = AnnotatedString("Login"),
+        Row(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(20.dp),
-            onClick = {(onLoginClick())},
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default,
-                textDecoration = TextDecoration.Underline,
+                .fillMaxWidth()
+                .padding(vertical = 15.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Text(
+                text = "Already have an account?",
+                textAlign = TextAlign.Center,
+                style = TextStyle(fontSize = 15.sp)
             )
-        )
+            ClickableText(
+                text = AnnotatedString("Login"),
+                modifier = Modifier.padding(start = 10.dp),
+                onClick = {
+                    onLoginClick()
+                },
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily.Cursive,
+                    textDecoration = TextDecoration.Underline,
+                    color = Color.Blue
+                )
+            )
+        }
     }
 }

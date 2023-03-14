@@ -7,5 +7,6 @@ data class Box(
     val price_per_box: Float = 0.0f,
     var bought: Boolean = false,
     val id: String = "",
-    val email: String = ""
+    val email: String = "",
+    val address: String = ""
 )

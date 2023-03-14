@@ -28,6 +28,13 @@ class SignUpCustomerViewModel(private val authService: AuthService): ViewModel()
         _password.value = passwordInput
     }
 
+    private val _confirmPassword = MutableStateFlow("")
+    val confirmPassword: StateFlow<String> = _confirmPassword
+
+    fun setConfirmPassword(confirmPasswordInput: String) {
+        _confirmPassword.value = confirmPasswordInput
+    }
+
     private val _username = MutableStateFlow("")
     val username: StateFlow<String> = _username
 

@@ -56,6 +56,10 @@ fun CustomerCartPage(viewModel: CustomerCartViewModel) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(text = "Date to pick up: " + box.pickup_time)
                         Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = "Address: " + box.address)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = "Business email: " + box.email)
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
             }

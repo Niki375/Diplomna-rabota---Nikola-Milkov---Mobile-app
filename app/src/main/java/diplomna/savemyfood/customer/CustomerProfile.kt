@@ -44,8 +44,17 @@ fun CustomerProfilePage(
             style = TextStyle(fontSize = 20.sp)
         )
         Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Email: ${viewModel.user.value?.email}",
+            style = TextStyle(fontSize = 20.sp)
+        )
 
-        Text(text = "Email: ${viewModel.user.value?.email}", style = TextStyle(fontSize = 20.sp))
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Money: ${viewModel.user.value?.money}",
+            style = TextStyle(fontSize = 20.sp)
+        )
+
         Spacer(modifier = Modifier.height(20.dp))
 
         val money = remember { mutableStateOf(TextFieldValue()) }

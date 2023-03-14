@@ -1,7 +1,10 @@
 package diplomna.savemyfood.customer
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import diplomna.savemyfood.authentication.User
@@ -30,7 +33,8 @@ class CustomerProfileViewModel : ViewModel() {
                 .get()
                 .addOnSuccessListener { querySnapshot ->
                     for (document in querySnapshot.documents) {
-                        firestore.collection("users").document(document.id).update("money", newMoney)
+                        firestore.collection("users").document(document.id)
+                            .update("money", newMoney)
                     }
                 }
         }
@@ -69,6 +73,16 @@ class CustomerProfileViewModel : ViewModel() {
                         firestore.collection("boxes").document(document.id).update("bought", false)
                     }
                 }
+            val firebaseUser = Firebase.auth.currentUser
+            firebaseUser?.delete()
+                ?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "User account deleted from FirebaseAuth")
+                    } else {
+                        Log.e(TAG, "Error deleting user account from FirebaseAuth", task.exception)
+                    }
+                }
         }
     }
+
 }

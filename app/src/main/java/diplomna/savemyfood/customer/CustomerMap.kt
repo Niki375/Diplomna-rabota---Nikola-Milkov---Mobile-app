@@ -44,14 +44,14 @@ fun CustomerMapPage(viewModel: CustomerMapViewModel) {
                 val mapView = MapView(context).apply {
                     setTileSource(TileSourceFactory.MAPNIK)
                     setMultiTouchControls(true)
-                    controller.setZoom(7.0)
+                    controller.setZoom(7.5)
                     controller.setCenter(GeoPoint(42.7339, 25.4858))
                 }
-                viewModel.updateMapMarkers(mapView, viewModel.geoPoints.value)
+                viewModel.updateMapMarkers(mapView, viewModel.geoPoints.value, null)
                 mapView
             },
             update = { view ->
-                viewModel.updateMapMarkers(view, viewModel.geoPoints.value)
+                viewModel.updateMapMarkers(view, viewModel.geoPoints.value, null)
             }
         )
     }

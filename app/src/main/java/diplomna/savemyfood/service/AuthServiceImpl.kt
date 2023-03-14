@@ -9,7 +9,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import diplomna.savemyfood.authentication.User
-import diplomna.savemyfood.business.Box
 import kotlinx.coroutines.tasks.await
 
 class AuthServiceImpl: AuthService {
