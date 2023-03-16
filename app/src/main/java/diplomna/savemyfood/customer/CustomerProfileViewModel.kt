@@ -67,19 +67,11 @@ class CustomerProfileViewModel : ViewModel() {
                 }
             firestore.collection("boxes")
                 .whereEqualTo("bought", true)
+                .whereEqualTo("user_email", user?.email)
                 .get()
                 .addOnSuccessListener { querySnapshot ->
                     for (document in querySnapshot.documents) {
                         firestore.collection("boxes").document(document.id).update("bought", false)
-                    }
-                }
-            val firebaseUser = Firebase.auth.currentUser
-            firebaseUser?.delete()
-                ?.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, "User account deleted from FirebaseAuth")
-                    } else {
-                        Log.e(TAG, "Error deleting user account from FirebaseAuth", task.exception)
                     }
                 }
         }

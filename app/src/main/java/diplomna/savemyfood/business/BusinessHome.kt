@@ -20,10 +20,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun BusinessHomePage(viewModel: BusinessHomeViewModel, onAddBoxClick: () -> Unit) {
-    // Call loadBoxes to get the data
     viewModel.loadBoxes()
     viewModel.createBoxEmailMap()
-    // Use viewModel.boxes to access the data
     val boxes = viewModel.boxes.value
 
     Column(

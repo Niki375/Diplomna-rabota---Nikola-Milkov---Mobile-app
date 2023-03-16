@@ -59,7 +59,8 @@ fun BusinessSellBoxPage(navController: NavController) {
             onValueChange = { price_per_box.value = it })
 
         Spacer(modifier = Modifier.height(20.dp))
-        if (foodtype.value.text.isNotEmpty() && description.value.text.isNotEmpty() && pickup_time.value.text.isNotEmpty() && price_per_box.value.text.isNotEmpty()) {
+        if (foodtype.value.text.isNotEmpty() && description.value.text.isNotEmpty() &&
+            pickup_time.value.text.isNotEmpty() && price_per_box.value.text.isNotEmpty()) {
             Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                 Button(
                     onClick = {

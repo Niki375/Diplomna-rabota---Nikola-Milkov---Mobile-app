@@ -56,10 +56,6 @@ fun CustomerSignUpPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-//        val username = remember { mutableStateOf(TextFieldValue()) }
-//        val email = remember { mutableStateOf(TextFieldValue()) }
-//        val password = remember { mutableStateOf(TextFieldValue()) }
-//        val confirmPassword = remember { mutableStateOf(TextFieldValue()) }
 
         Text(text = "Sign up", style = TextStyle(fontSize = 40.sp))
 
@@ -98,7 +94,8 @@ fun CustomerSignUpPage(
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword == password) {
+        if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() &&
+            confirmPassword == password) {
             Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                 Button(onClick = {
 

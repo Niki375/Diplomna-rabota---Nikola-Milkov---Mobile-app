@@ -13,23 +13,18 @@ fun onSellBoxClick(
     pickupTime: String,
     pricePerBox: Float
 ) {
-    // Create a Firestore instance
     val db = Firebase.firestore
 
-    // Get the current user's UID
     val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-    // Retrieve the business account document from Firestore
     db.collection("users").document(userId!!)
         .get()
         .addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot.exists()) {
                 val address = documentSnapshot.getString("address") ?: ""
 
-                // Get the current user's email
                 val userEmail = Firebase.auth.currentUser?.email
 
-                // Create a HashMap object with the box data
                 val box = hashMapOf(
                     "food_type" to foodType,
                     "description" to description,
@@ -40,7 +35,6 @@ fun onSellBoxClick(
                     "address" to address
                 )
 
-                // Add the box data to the "boxes" collection
                 db.collection("boxes")
                     .add(box)
                     .addOnSuccessListener { documentReference ->
@@ -56,7 +50,6 @@ fun onSellBoxClick(
                             "address" to address
                         )
 
-                        // Update the document with the box data, including the generated ID
                         db.collection("boxes")
                             .document(boxId)
                             .update(boxData as Map<String, Any>)

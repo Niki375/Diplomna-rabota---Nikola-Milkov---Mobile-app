@@ -15,33 +15,8 @@ class AuthServiceImpl: AuthService {
 
     private val auth = FirebaseAuth.getInstance()
 
-    override fun createAccount(onResult: (Throwable?) -> Unit) {
-        // Not needed for sign up and login without anonymous sign-in
-    }
-
     override fun authenticate(email: String, password: String, onResult: (Throwable?) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-
-                    onResult(null)
-                } else {
-                    onResult(task.exception)
-                }
-            }
-    }
-
-    override fun linkAccount(email: String, password: String, onResult: (Throwable?) -> Unit) {
-        val currentUser = auth.currentUser
-        if (currentUser == null) {
-            // If no user is signed in, return an error
-            onResult(IllegalStateException("No user is signed in"))
-            return
-        }
-
-        val credential = EmailAuthProvider.getCredential(email, password)
-
-        currentUser.linkWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     onResult(null)
@@ -87,42 +62,4 @@ class AuthServiceImpl: AuthService {
         auth.currentUser?.delete()
     }
 
-
-//    override suspend fun getBoxData(): List<Box>? {
-//        val firestore = Firebase.firestore
-//        val boxCollection = firestore.collection("boxes")
-//        val query = boxCollection.whereEqualTo("email", Firebase.auth.currentUser?.email)
-//
-//        return try {
-//            val result = query.get().await()
-//            if (result.isEmpty) {
-//                null
-//            } else {
-//                result.documents.mapNotNull { doc ->
-//                    doc.toObject(Box::class.java)
-//                }
-//            }
-//        } catch (e: Exception) {
-//            null
-//        }
-//    }
-
-//     suspend fun getAllBoxData(): List<Box>? {
-//        val firestore = Firebase.firestore
-//        val boxCollection = firestore.collection("boxes")
-//        val query = boxCollection
-//
-//        return try {
-//            val result = query.get().await()
-//            if (result.isEmpty) {
-//                null
-//            } else {
-//                result.documents.mapNotNull { doc ->
-//                    doc.toObject(Box::class.java)
-//                }
-//            }
-//        } catch (e: Exception) {
-//            null
-//        }
-//    }
 }

@@ -50,9 +50,9 @@ class CustomerMapViewModel : ViewModel() {
         geoPoints?.forEach {
             if (deletedBusinesses == null || it.name !in deletedBusinesses) {
                 val marker = Marker(mapView)
-                marker.position = it.geoPoint // Latitude and longitude of the marker
-                marker.title = it.name // Title of the marker
-                marker.snippet = it.address // Description of the marker
+                marker.position = it.geoPoint
+                marker.title = it.name
+                marker.snippet = it.address
                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                 mapView.overlays.add(marker)
             }

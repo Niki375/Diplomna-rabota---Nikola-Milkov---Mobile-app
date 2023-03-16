@@ -29,7 +29,8 @@ fun ForgotPasswordPage(
 
         val email = remember { mutableStateOf(TextFieldValue()) }
 
-        Text(text = "Forgot your password? \n\n Please enter the email you use to sign in.", textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp))
+        Text(text = "Forgot your password? \n\n Please enter the email you use to sign in.",
+            textAlign = TextAlign.Center, style = TextStyle(fontSize = 40.sp))
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(

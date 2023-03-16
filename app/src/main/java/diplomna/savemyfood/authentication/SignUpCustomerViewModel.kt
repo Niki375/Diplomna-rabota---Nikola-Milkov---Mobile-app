@@ -47,13 +47,11 @@ class SignUpCustomerViewModel(private val authService: AuthService): ViewModel()
             authService.signup(email.value, password.value, false) { user, error ->
                 if (error == null && user != null) {
                     val userDoc = db.collection("users").document(user.uid)
-                    val newUser = User(email.value, username.value, "", 0.0, 0.0, false, 0.0f)
+                    val newUser = User(email.value, username.value, "",
+                        0.0, 0.0, false, 0.0f)
                     userDoc.set(newUser)
-
-                    // success
                     _state.value = LinkState.Success
                 } else {
-                    // set error
                     _state.value = LinkState.Error
                 }
             }

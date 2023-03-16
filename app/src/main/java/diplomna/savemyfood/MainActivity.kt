@@ -97,12 +97,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun shouldShowNavigationBar(currentRoute: String?): Boolean {
-        // Add logic to decide which pages should have the navigation bar and which not
-        return  currentRoute == "CustomerHome" || currentRoute == "CustomerCart" || currentRoute == "CustomerMap" || currentRoute == "CustomerProfile"
+        return  currentRoute == "CustomerHome"
+                || currentRoute == "CustomerCart"
+                || currentRoute == "CustomerMap"
+                || currentRoute == "CustomerProfile"
     }
 
     private fun shouldShowSecondNavBar(currentRoute: String?): Boolean {
-        // Add logic to decide which pages should have the second navigation bar and which not
         return currentRoute == "BusinessHome" || currentRoute == "BusinessProfile"
     }
 }

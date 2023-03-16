@@ -11,11 +11,8 @@ class SaveMyFoodApplication : Application() {
         super.onCreate()
 
         startKoin {
-            // Log Koin into Android logger
             androidLogger()
-            // Reference Android context
             androidContext(this@SaveMyFoodApplication)
-            // Load modules
             modules(modules = appModules)
         }
 

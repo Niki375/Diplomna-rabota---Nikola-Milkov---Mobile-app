@@ -21,30 +21,26 @@ class CustomerCartViewModel : ViewModel() {
             val firestore = Firebase.firestore
             val user = authService.getUserData()
 
-            val boxesList = mutableListOf<Box>() // create a mutable list to store the boxes
+            val boxesList = mutableListOf<Box>()
 
             firestore.collection("orders")
                 .whereEqualTo("user_email", user?.email)
                 .get()
                 .addOnSuccessListener { ordersQuerySnapshot ->
 
-                    // For each order document, get the box_id
                     for (orderDocument in ordersQuerySnapshot.documents) {
                         val boxId = orderDocument.getString("box_id")
 
-                        // Get the box document from the boxes collection with the same box_id
                         firestore.collection("boxes")
                             .document(boxId!!)
                             .get()
                             .addOnSuccessListener { boxDocumentSnapshot ->
                                 val box = boxDocumentSnapshot.toObject(Box::class.java)
 
-                                // Add the box to the list
                                 if (box != null) {
                                     boxesList.add(box)
                                 }
 
-                                // Update the live data with the new list of boxes
                                 _boxes.value = boxesList.toList()
                             }
                     }

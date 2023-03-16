@@ -18,9 +18,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomerCartPage(viewModel: CustomerCartViewModel) {
-// Call loadBoxes to get the data
     viewModel.loadBoxes()
-    // Use viewModel.boxes to access the data
     val boxes = viewModel.boxes.value
 
 
@@ -31,7 +29,8 @@ fun CustomerCartPage(viewModel: CustomerCartViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Your orders", style = TextStyle(textAlign = TextAlign.Center, fontSize = 40.sp, textDecoration = TextDecoration.Underline))
+        Text(text = "Your orders", style = TextStyle(textAlign = TextAlign.Center, fontSize = 40.sp,
+            textDecoration = TextDecoration.Underline))
 
         Spacer(modifier = Modifier.height(20.dp))
 

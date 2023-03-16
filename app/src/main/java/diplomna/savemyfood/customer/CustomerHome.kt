@@ -21,9 +21,7 @@ import diplomna.savemyfood.business.BusinessHomeViewModel
 @Composable
 fun CustomerHomePage(viewModel: CustomerHomeViewModel) {
 
-    // Call loadBoxes to get the data
     viewModel.loadBoxes()
-    // Use viewModel.boxes to access the data
     val boxes = viewModel.boxes.value
 
     Column(
@@ -32,7 +30,8 @@ fun CustomerHomePage(viewModel: CustomerHomeViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Boxes", style = TextStyle(textAlign = TextAlign.Center, fontSize = 40.sp, textDecoration = TextDecoration.Underline))
+        Text(text = "Boxes", style = TextStyle(textAlign = TextAlign.Center, fontSize = 40.sp,
+            textDecoration = TextDecoration.Underline))
 
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -62,11 +61,6 @@ fun CustomerHomePage(viewModel: CustomerHomeViewModel) {
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(text = "Business email: " + box.email)
                         Spacer(modifier = Modifier.height(16.dp))
-//                        Button(onClick = {
-//                            viewModel.buyBox(box)
-//                        }) {
-//                            Text(text = "Buy")
-//                        }
                         var buttonClicked by remember { mutableStateOf(false) }
                         if (!buttonClicked) {
                             Button(onClick = {
