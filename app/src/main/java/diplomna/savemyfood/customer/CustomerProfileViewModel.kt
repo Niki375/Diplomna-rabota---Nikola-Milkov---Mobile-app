@@ -1,10 +1,7 @@
 package diplomna.savemyfood.customer
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import diplomna.savemyfood.authentication.User
@@ -76,5 +73,4 @@ class CustomerProfileViewModel : ViewModel() {
                 }
         }
     }
-
 }

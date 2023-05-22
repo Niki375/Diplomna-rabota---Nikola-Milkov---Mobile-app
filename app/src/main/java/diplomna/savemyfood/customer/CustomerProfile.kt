@@ -4,12 +4,8 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
@@ -29,6 +25,8 @@ fun CustomerProfilePage(
 ) {
 
     viewModel.getUser()
+    var showLogoutDialog by remember { mutableStateOf(false) }
+    var showDeleteAccountDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -61,7 +59,7 @@ fun CustomerProfilePage(
         TextField(
             value = money.value,
             onValueChange = { money.value = it },
-            label = { Text(text = "Money") },
+            label = { Text(text = "Add money") },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -72,7 +70,7 @@ fun CustomerProfilePage(
         if (money.value.text.isNotEmpty()) {
             Button(
                 onClick = {
-                    viewModel.addMoney(money.value.text.toFloat());
+                    viewModel.addMoney(money.value.text.toFloat())
                     money.value = TextFieldValue()
                 },
                 shape = RoundedCornerShape(50.dp),
@@ -87,7 +85,7 @@ fun CustomerProfilePage(
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
-                onClick = { onLogOutClick(); viewModel.logOut() },
+                onClick = { showLogoutDialog = true },
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -96,21 +94,69 @@ fun CustomerProfilePage(
                 Text(text = "Log out")
             }
         }
-    }
-    Spacer(modifier = Modifier.height(20.dp))
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        ClickableText(
-            text = AnnotatedString("Delete account"),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(20.dp),
-            onClick = {onDeleteAccount(); viewModel.deleteAccount()},
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default,
-                textDecoration = TextDecoration.Underline,
+        Spacer(modifier = Modifier.height(20.dp))
+        Box(modifier = Modifier.fillMaxSize()) {
+            ClickableText(
+                text = AnnotatedString("Delete account"),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(20.dp),
+                onClick = {showDeleteAccountDialog = true},
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily.Default,
+                    textDecoration = TextDecoration.Underline,
+                )
             )
-        )
+        }
+
+        if (showLogoutDialog) {
+            AlertDialog(
+                onDismissRequest = { showLogoutDialog = false },
+                title = { Text(text = "Confirm Log Out") },
+                text = { Text(text = "Are you sure you want to log out?") },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showLogoutDialog = false
+                            onLogOutClick()
+                            viewModel.logOut()
+                        }
+                    ) {
+                        Text(text = "Log Out")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showLogoutDialog = false }) {
+                        Text(text = "Cancel")
+                    }
+                }
+            )
+        }
+
+        if (showDeleteAccountDialog) {
+            AlertDialog(
+                onDismissRequest = { showDeleteAccountDialog = false },
+                title = { Text("Confirm Account Deletion") },
+                text = { Text("Are you sure you want to delete your account? This action cannot be undone.") },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showDeleteAccountDialog = false
+                            onDeleteAccount()
+                            viewModel.deleteAccount()
+                        }
+                    ) {
+                        Text("Delete Account")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDeleteAccountDialog = false }) {
+                        Text("Cancel")
+                    }
+                }
+            )
+        }
     }
 }

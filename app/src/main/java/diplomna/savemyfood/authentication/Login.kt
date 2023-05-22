@@ -1,15 +1,15 @@
 package diplomna.savemyfood.authentication
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -19,7 +19,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import diplomna.savemyfood.R
 import diplomna.savemyfood.navigation.Routes
+import diplomna.savemyfood.ui.theme.ButtonTemplate
 
 @Composable
 fun LoginPage(
@@ -35,25 +37,23 @@ fun LoginPage(
     navController: NavController
 ) {
 
-
     when (state) {
         LoginViewModel.LoginState.None -> {
-            // handle none state
         }
+
         LoginViewModel.LoginState.Error -> {
-            // handle error state
         }
+
         LoginViewModel.LoginState.SuccessCustomer -> {
             successfulLogin()
             navController.navigate(Routes.CustomerHome.route)
         }
+
         LoginViewModel.LoginState.SuccessBusiness -> {
             successfulLogin()
             navController.navigate(Routes.BusinessHome.route)
         }
     }
-
-
 
     Column(
         modifier = Modifier.padding(20.dp),
@@ -67,7 +67,8 @@ fun LoginPage(
         TextField(
             label = { Text(text = "Email") },
             value = email,
-            onValueChange = { setEmail(it) })
+            onValueChange = { setEmail(it) }
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
@@ -75,29 +76,27 @@ fun LoginPage(
             value = password,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { setPassword(it) })
+            onValueChange = { setPassword(it) }
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
         if(email.isNotEmpty() && password.isNotEmpty()) {
-            Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-                Button(
-                    onClick = { onLoginClick() },
-                    shape = RoundedCornerShape(50.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                ) {
-                    Text(text = "Log in")
-                }
-            }
-        }
+            ButtonTemplate(onButtonClick = {onLoginClick()}, text = stringResource(id = R.string.login))
+        }else(
+            Text(
+                text = "Please fill all fields",
+                style = TextStyle(color = Color.Red, fontSize = 12.sp),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
         ClickableText(
             text = AnnotatedString("Forgot password?"),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = {onForgotPasswordClick()},
             style = TextStyle(
-                fontSize = 14.sp,
+                fontSize = 16.sp,
                 fontFamily = FontFamily.Default
             )
         )
@@ -118,3 +117,4 @@ fun LoginPage(
         }
     }
 }
+

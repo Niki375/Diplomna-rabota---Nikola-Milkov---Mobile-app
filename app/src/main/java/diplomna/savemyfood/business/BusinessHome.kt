@@ -5,17 +5,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import diplomna.savemyfood.R
+import diplomna.savemyfood.ui.theme.ButtonTemplate
 
 
 @Composable
@@ -25,7 +27,7 @@ fun BusinessHomePage(viewModel: BusinessHomeViewModel, onAddBoxClick: () -> Unit
     val boxes = viewModel.boxes.value
 
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier.fillMaxWidth().padding(20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -39,20 +41,11 @@ fun BusinessHomePage(viewModel: BusinessHomeViewModel, onAddBoxClick: () -> Unit
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = { onAddBoxClick() },
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Add a box")
-            }
-        }
+        ButtonTemplate(onButtonClick = {onAddBoxClick()}, text = stringResource(id = R.string.add_box))
+
 
         Spacer(modifier = Modifier.height(20.dp))
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(boxes ?: emptyList()) { box ->
                 val boughtBox = Color.Red.copy(alpha = 0.7f)
                 val notBoughtBox = Color.Green.copy(alpha = 0.7f)
@@ -68,10 +61,11 @@ fun BusinessHomePage(viewModel: BusinessHomeViewModel, onAddBoxClick: () -> Unit
                 }
 
                 Box(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.fillMaxWidth().padding(16.dp)
                 ) {
                     Column(
                         modifier = Modifier
+                            .fillMaxWidth()
                             .padding(16.dp)
                             .background(color, RoundedCornerShape(16.dp))
                             .padding(16.dp),

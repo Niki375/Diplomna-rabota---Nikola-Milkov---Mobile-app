@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SaveMyFood</string>
+    <string name="login">Login</string>
+    <string name="signup">Create account</string>
+    <string name="customer">Customer account</string>
+    <string name="business">Business account</string>
+    <string name="add_box">Add a box</string>
 </resources>

@@ -100,8 +100,6 @@ fun NavHost(navController: NavHostController) {
             val password by viewModel.password.collectAsState()
             val confirmPassword by viewModel.confirmPassword.collectAsState()
             val address by viewModel.address.collectAsState()
-            val latitude by viewModel.latitude.collectAsState()
-            val longitude by viewModel.longitude.collectAsState()
             val linkState by viewModel.state.collectAsState()
 
             BusinessSignUpPage(
@@ -157,7 +155,9 @@ fun NavHost(navController: NavHostController) {
 
             CustomerProfilePage(
                 viewModel = viewModel,
-                onLogOutClick = {navController.navigate(Routes.Login.route)},
+                onLogOutClick = {navController.navigate(Routes.Login.route) {
+                    popUpTo(0)
+                } },
                 onDeleteAccount = {navController.navigate(Routes.Login.route)}
             )
 
@@ -181,7 +181,9 @@ fun NavHost(navController: NavHostController) {
             val viewModel = getViewModel<BusinessProfileViewModel>()
 
             BusinessProfilePage(
-                onLogOutClick = {navController.navigate(Routes.Login.route)},
+                onLogOutClick = {navController.navigate(Routes.Login.route) {
+                    popUpTo(0)
+                } },
                 onDeleteAccount = {navController.navigate(Routes.Login.route)},
                 viewModel = viewModel)
         }

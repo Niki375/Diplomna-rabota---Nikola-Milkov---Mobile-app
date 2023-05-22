@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
@@ -22,7 +23,7 @@ import diplomna.savemyfood.navigation.Routes
 fun BusinessSellBoxPage(navController: NavController) {
 
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier.fillMaxWidth().padding(20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -80,6 +81,12 @@ fun BusinessSellBoxPage(navController: NavController) {
                     Text(text = "Sell box")
                 }
             }
-        }
+        }else(
+            Text(
+                text = "Please fill all fields",
+                style = TextStyle(color = Color.Red, fontSize = 12.sp),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        )
     }
 }
